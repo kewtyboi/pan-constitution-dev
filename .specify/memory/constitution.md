@@ -1,4 +1,4 @@
-—
+---
 topic: “governance”
 name: “Pan AI Project Constitution”
 author: “TBD SRP”
@@ -9,7 +9,7 @@ initiative: “pan”
 related_issues: []
 status: “active”
 tags: [“constitution”,”ai”,”governance”]
-—
+---
 
 # Pan AI Project Constitution
 
