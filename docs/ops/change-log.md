@@ -69,7 +69,34 @@ Projects adopting Pan Constitution v1.0.0 should:
 
 These will be addressed in future releases.
 
+## v1.1.1 - 2025-01-27
+
+**Status:** Active  
+**Initiative:** pan-governance-foundation
+
+### Changed
+
+- [MERGED] Constitution formatting improvements (smart quotes to straight quotes, em dashes to regular dashes)
+- [MERGED] Deleted non-functional update workflow (`.github/workflows/update-pan.yml`)
+
+### Added
+
+- [MERGED] Created constitutional infrastructure files:
+  - `.github/pull_request_template.md` - Required PR template with constitutional fields
+  - `profile.yaml` - Project-specific tool configurations and thresholds
+  - `.specify/memory/cdl.md` - Constitution Decision Log for tracking constitutional decisions
+
+### Context
+
+The automated update workflow was too long and not working properly, so it was removed. Manual constitution updates were necessary to establish the required constitutional infrastructure. This change log entry documents the process deviation and creation of missing infrastructure files.
+
+### Process Notes
+
+- Process deviation documented in CDL-001
+- Infrastructure files created to support future constitutional compliance
+- Future updates will follow proper constitutional workflow
+
 ---
 
-**Version**: 1.0.0 | **Last Updated**: 2025-10-11
+**Version**: 1.1.1 | **Last Updated**: 2025-01-27
 
