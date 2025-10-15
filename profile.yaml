@@ -1,0 +1,40 @@
+# Pan Constitution Profile
+# Project-specific tool choices and thresholds
+
+tools:
+  scripts:
+    # Documentation scripts
+    "docs:frontmatter:dry": "echo 'Front matter validation not yet implemented'"
+    "docs:frontmatter": "echo 'Front matter application not yet implemented'"
+    "docs:index": "echo 'Documentation indexing not yet implemented'"
+    
+    # Quality checks
+    "lint:md": "echo 'Markdown linting not yet implemented'"
+    "check:links": "echo 'Link checking not yet implemented'"
+    "spellcheck": "echo 'Spell checking not yet implemented'"
+    "fmt": "echo 'Code formatting not yet implemented'"
+    "lint": "echo 'Code linting not yet implemented'"
+    "tests-pass": "echo 'Test execution not yet implemented'"
+    "coverage": "echo 'Coverage checking not yet implemented'"
+    
+    # Security and compliance
+    "sec-scan": "echo 'Security scanning not yet implemented'"
+    "license-scan": "echo 'License scanning not yet implemented'"
+    "secret-scan": "echo 'Secret scanning not yet implemented'"
+    "deps-locked": "echo 'Dependency locking check not yet implemented'"
+    "sbom": "echo 'SBOM generation not yet implemented'"
+    
+    # Process checks
+    "preflight-read": "echo 'Preflight read check not yet implemented'"
+    "preflight-scope": "echo 'Preflight scope check not yet implemented'"
+    "review:agent": "echo 'AI review not yet implemented'"
+    "pr-has-links": "echo 'PR links check not yet implemented'"
+    "provenance-present": "echo 'Provenance check not yet implemented'"
+    "check:changelog": "echo 'Changelog check not yet implemented'"
+    "constitution-location": "echo 'Constitution location check not yet implemented'"
+
+quality:
+  coverage_target: 80
+
+security_privacy:
+  secret_manager_required: false
