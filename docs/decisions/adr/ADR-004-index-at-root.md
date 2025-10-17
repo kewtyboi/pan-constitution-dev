@@ -1,0 +1,260 @@
+---
+topic: architecture-decision
+name: ADR-004 - Place INDEX.md at Project Root
+author: Manus AI
+version: 1.0.0
+date: 2025-10-14
+description: Decision to place auto-generated documentation index at project root instead of in docs/ directory
+initiative: pan-governance-foundation
+related_issues:
+  - '#5'
+  - '#8'
+status: accepted
+tags:
+  - adr
+  - documentation
+  - index
+  - structure
+---
+
+# ADR-004: Place INDEX.md at Project Root
+
+**Status:** Accepted  
+**Date:** 2025-10-14  
+**Deciders:** Pan Governance Team  
+**Technical Story:** Epic #5, Scaffolding #8
+
+## Context and Problem Statement
+
+The Pan Constitution template needs an auto-generated index of all documentation. We need to decide where to place this index file:
+
+1. At project root (`/INDEX.md`)
+2. In docs directory (`/docs/INDEX.md`)
+3. As part of README.md
+
+The index serves both humans and AI agents who need to quickly find documentation.
+
+## Decision Drivers
+
+- **Visibility:** Index should be immediately discoverable
+- **Convention:** Should follow standard practices where they exist
+- **Separation:** Should not clutter root directory unnecessarily
+- **Automation:** Should be easy to auto-generate and update
+- **AI-Friendly:** AI agents should easily find and parse it
+
+## Considered Options
+
+### Option 1: Place in docs/ Directory
+
+**Approach:** Create `/docs/INDEX.md` alongside other documentation.
+
+**Pros:**
+- Keeps documentation together
+- Cleaner root directory
+- Logical location (index of docs in docs/)
+
+**Cons:**
+- Less visible to users
+- Not immediately discoverable
+- AI agents may not check docs/ first
+- Not standard practice for project-level indexes
+
+**Implementation Effort:** Low
+
+### Option 2: Place at Project Root (CHOSEN)
+
+**Approach:** Create `/INDEX.md` at project root.
+
+**Pros:**
+- **Immediately visible** to users and AI agents
+- **Standard practice** for project-level indexes
+- **Clear intent** - top-level index of all documentation
+- **Easy to find** - no need to navigate into docs/
+- **Follows examples** from mature projects
+
+**Cons:**
+- Adds one more file to root directory
+- Could be confused with README.md
+
+**Implementation Effort:** Low
+
+### Option 3: Integrate into README.md
+
+**Approach:** Add documentation index section to README.md.
+
+**Pros:**
+- No additional file
+- Single entry point
+
+**Cons:**
+- README.md becomes very long
+- Mixes project overview with documentation index
+- Harder to auto-generate (must preserve other content)
+- Not standard practice
+
+**Implementation Effort:** Medium (complex automation)
+
+## Decision Outcome
+
+**Chosen option: "Place at Project Root"** because it:
+
+1. **Provides immediate visibility** to all users and AI agents
+2. **Follows standard practice** for project-level indexes
+3. **Clearly signals intent** - this is the master documentation index
+4. **Simplifies automation** - standalone file is easy to regenerate
+5. **Separates concerns** - README for project overview, INDEX for documentation navigation
+
+### Implementation Strategy
+
+**Phase 1: Create INDEX.md (Week 1)**
+1. Create `/INDEX.md` at project root
+2. Add YAML front matter
+3. Add header explaining purpose
+4. Include placeholder for auto-generated content
+
+**Phase 2: Auto-Generation Script (Week 2)**
+5. Create `scripts/generate-docs-index-v2.js`
+6. Scan all documentation files
+7. Extract YAML front matter
+8. Generate organized index by:
+   - Topic
+   - Initiative
+   - Status
+   - Recent updates
+
+**Phase 3: Integration (Week 2)**
+9. Add npm script: `npm run docs:index`
+10. Document in CONTRIBUTING.md
+11. Add to CI/CD validation
+12. Link from README.md
+
+### Positive Consequences
+
+- **Immediate discoverability:** Users find index right away
+- **Clear navigation:** Single source of truth for all documentation
+- **AI-friendly:** Agents can quickly scan all available docs
+- **Easy automation:** Standalone file is simple to regenerate
+- **Standard practice:** Follows conventions from other projects
+
+### Negative Consequences
+
+- **Root directory clutter:** Adds one more file to root
+- **Potential confusion:** Users might confuse with README.md
+
+### Mitigation Strategies
+
+**For root directory clutter:**
+- INDEX.md serves important purpose (worth the space)
+- Root directory already has multiple files (README, CONTRIBUTING, CHANGELOG, etc.)
+- Clear naming makes purpose obvious
+
+**For potential confusion:**
+- Clear header in INDEX.md explaining purpose
+- Link from README.md to INDEX.md
+- Different content makes distinction clear
+
+## INDEX.md Structure
+
+```markdown
+---
+topic: documentation-index
+name: Documentation Index
+author: Auto-generated
+version: 1.0.0
+date: {{CREATION_DATE}}
+description: Auto-generated index of all documentation
+initiative: {{INITIAL_INITIATIVE}}
+status: active
+tags:
+  - index
+  - documentation
+  - auto-generated
+---
+
+# Documentation Index
+
+This index is automatically generated by `scripts/generate-docs-index-v2.js`.
+
+Last updated: [Auto-generated timestamp]
+
+## By Topic
+
+[Auto-generated content organised by topic]
+
+## By Initiative
+
+[Auto-generated content organised by initiative]
+
+## By Status
+
+### Active Documents
+[List of active documents]
+
+### Archived Documents
+[List of archived documents]
+
+## Recent Updates
+
+[Last 10 updated documents]
+
+---
+
+To regenerate this index, run:
+
+npm run docs:index
+```
+
+## Comparison with Other Projects
+
+| Project | INDEX Location | Notes |
+|---------|---------------|-------|
+| NeuroNarnia | ✅ `/docs/INDEX.md` | In docs/ directory |
+| AwayTomate | ❌ None | No index file |
+| Pointy-agents | ❌ None | No index file |
+| **Pan Template** | ✅ `/INDEX.md` | **At root (our decision)** |
+
+**Observation:** NeuroNarnia has INDEX in docs/, but we believe root is better for visibility.
+
+## Integration with README.md
+
+README.md should link to INDEX.md:
+
+```markdown
+## Documentation
+
+For a complete index of all documentation, see [INDEX.md](./INDEX.md).
+
+Quick links:
+- [Getting Started](./docs/getting-started/)
+- [How-to Guides](./docs/how-to/)
+- [Reference](./docs/reference/)
+```
+
+## Auto-Generation
+
+INDEX.md is **auto-generated** by `scripts/generate-docs-index-v2.js`:
+
+**Inputs:**
+- All markdown files in `docs/`
+- YAML front matter from each file
+
+**Outputs:**
+- Organized index by topic, initiative, status
+- Recent updates section
+- Alphabetical listings
+
+**Trigger:**
+- Manual: `npm run docs:index`
+- CI/CD: On PR to validate index is up-to-date
+- Pre-commit hook: Optional
+
+## References
+
+- Issue #8: Scaffold pan-constitution-template repository structure
+- NeuroNarnia INDEX.md: `/docs/INDEX.md`
+- Script: `scripts/generate-docs-index-v2.js`
+
+---
+
+**Version:** 1.0.0 | **Last Updated:** 2025-10-14 | **Status:** Accepted
+
