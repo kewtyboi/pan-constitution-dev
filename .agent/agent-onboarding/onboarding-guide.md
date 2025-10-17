@@ -32,6 +32,7 @@ agents/<your-name>/
     ├── recent-insights.md      # Breakthroughs and learnings
     ├── team-context.md         # Team members and collaboration
     ├── solution-pipeline.md    # Backlog of problems/opportunities
+    ├── chat-export.md          # Chat history exports (manual, optional)
     ├── patterns/               # YOUR problem patterns (not shared)
     ├── innovations/            # YOUR creative solutions (not shared)
     ├── users/                  # YOUR user context (not shared)
@@ -96,6 +97,14 @@ Create these four core memory files in `agents/<your-name>/memory/`:
 - Copy from `.agent/agent-onboarding/solution-pipeline-template.md`
 - Maintain backlog with problem statements and acceptance criteria
 - Triage weekly; update after incidents
+
+### chat-export.md (Optional)
+
+- **Manual step**: User-driven export of chat history
+- Use this file to preserve important conversation context
+- Export chat transcripts when they contain valuable insights or decisions
+- Helps maintain continuity across sessions
+- **Note**: This is optional and only needed if you want to keep detailed chat records
 
 ## Step 4: Create Your Personal Folders
 

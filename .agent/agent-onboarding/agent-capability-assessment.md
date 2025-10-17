@@ -61,74 +61,46 @@ This framework helps us identify what capabilities each agent has and what they 
 
 ## 📊 Agent Capability Matrix
 
-### **Ben's Current Capabilities**
+### Example: Agent Capability Assessment
+
+Use this matrix template to assess your capabilities. Replace "[Agent Name]" with your name.
+
+### **[Agent Name]'s Capabilities**
 | Category | Capability | Status | Notes |
 |----------|------------|--------|-------|
-| File System | Read Files | ✅ | Full access to any repository |
+| File System | Read Files | ✅/❌/❓ | [Your notes] |
+| File System | Write Files | ✅/❌/❓ | [Your notes] |
+| File System | Edit Files | ✅/❌/❓ | [Your notes] |
+| File System | Delete Files | ✅/❌/❓ | [Your notes] |
+| File System | Directory Navigation | ✅/❌/❓ | [Your notes] |
+| File System | File Search | ✅/❌/❓ | [Your notes] |
+| Code Analysis | Semantic Search | ✅/❌/❓ | [Your notes] |
+| Code Analysis | Pattern Matching | ✅/❌/❓ | [Your notes] |
+| Code Analysis | Pull Request Access | ✅/❌/❓ | [Your notes] |
+| Code Analysis | Web Search | ✅/❌/❓ | [Your notes] |
+| Development | Terminal Commands | ✅/❌/❓ | [Your notes] |
+| Development | Package Management | ✅/❌/❓ | [Your notes] |
+| Development | Git Operations | ✅/❌/❓ | [Your notes] |
+| AI & Collaboration | Memory Management | ✅/❌/❓ | [Your notes] |
+| AI & Collaboration | Task Management | ✅/❌/❓ | [Your notes] |
+| AI & Collaboration | Communication | ✅/❌/❓ | [Your notes] |
+| Specialized | [Tool/Platform Name] | ✅/❌/❓ | [Your notes] |
+| Specialized | [Tool/Platform Name] | ✅/❌/❓ | [Your notes] |
+
+### Example: Completed Assessment
+
+Here's an example of a completed capability assessment:
+
+### **Example Agent's Capabilities**
+| Category | Capability | Status | Notes |
+|----------|------------|--------|-------|
+| File System | Read Files | ✅ | Full access to repository |
 | File System | Write Files | ✅ | Can create new files |
 | File System | Edit Files | ✅ | Can modify existing files |
-| File System | Delete Files | ✅ | Can remove files |
-| File System | Directory Navigation | ✅ | Can browse structures |
-| File System | File Search | ✅ | Pattern and name search |
-| Code Analysis | Semantic Search | ✅ | `codebase_search` tool |
-| Code Analysis | Pattern Matching | ✅ | `grep` tool |
-| Code Analysis | Pull Request Access | ✅ | `fetch_pull_request` |
-| Code Analysis | Web Search | ✅ | `web_search` tool |
-| Development | Terminal Commands | ✅ | `run_terminal_cmd` |
-| Development | Linting | ✅ | `read_lints` tool |
-| Development | Task Management | ✅ | `todo_write` tool |
-| AI & Collaboration | Memory Management | ✅ | `update_memory` tool |
-| AI & Collaboration | Notebook Editing | ✅ | `edit_notebook` tool |
-| AI & Collaboration | Diagram Creation | ✅ | `create_diagram` tool |
-| AI & Collaboration | Cross-Repository Access | ✅ | Can work across repos |
-| AI & Collaboration | Real-time Communication | ✅ | Can update shared docs |
-
-### **Jessica's Capabilities** (To Be Assessed)
-| Category | Capability | Status | Notes |
-|----------|------------|--------|-------|
-| File System | Read Files | ❓ | Needs assessment |
-| File System | Write Files | ❓ | Needs assessment |
-| File System | Edit Files | ❓ | Needs assessment |
-| File System | Delete Files | ❓ | Needs assessment |
-| File System | Directory Navigation | ❓ | Needs assessment |
-| File System | File Search | ❓ | Needs assessment |
-| Code Analysis | Semantic Search | ❓ | Needs assessment |
-| Code Analysis | Pattern Matching | ❓ | Needs assessment |
-| Code Analysis | Pull Request Access | ❓ | Needs assessment |
-| Code Analysis | Web Search | ❓ | Needs assessment |
-| Development | Terminal Commands | ❓ | Needs assessment |
-| Development | Linting | ❓ | Needs assessment |
-| Development | Task Management | ❓ | Needs assessment |
-| AI & Collaboration | Memory Management | ❓ | Needs assessment |
-| AI & Collaboration | Notebook Editing | ❓ | Needs assessment |
-| AI & Collaboration | Diagram Creation | ❓ | Needs assessment |
-| AI & Collaboration | Cross-Repository Access | ❓ | Needs assessment |
-| AI & Collaboration | Real-time Communication | ❓ | Needs assessment |
-| Specialized | N8N Workflow Access | ❓ | Critical for her work |
-| Specialized | Documentation Tools | ❓ | Needs assessment |
-| Specialized | Configuration Management | ❓ | Needs assessment |
-
-### **Elsie's Capabilities** (To Be Assessed)
-| Category | Capability | Status | Notes |
-|----------|------------|--------|-------|
-| File System | Read Files | ❓ | Needs assessment |
-| File System | Write Files | ❓ | Needs assessment |
-| File System | Edit Files | ❓ | Needs assessment |
-| File System | Delete Files | ❓ | Needs assessment |
-| File System | Directory Navigation | ❓ | Needs assessment |
-| File System | File Search | ❓ | Needs assessment |
-| Code Analysis | Semantic Search | ❓ | Needs assessment |
-| Code Analysis | Pattern Matching | ❓ | Needs assessment |
-| Code Analysis | Pull Request Access | ❓ | Needs assessment |
-| Code Analysis | Web Search | ❓ | Needs assessment |
-| Development | Terminal Commands | ❓ | Needs assessment |
-| Development | Linting | ❓ | Needs assessment |
-| Development | Task Management | ❓ | Needs assessment |
-| AI & Collaboration | Memory Management | ❓ | Needs assessment |
-| AI & Collaboration | Notebook Editing | ❓ | Needs assessment |
-| AI & Collaboration | Diagram Creation | ❓ | Needs assessment |
-| AI & Collaboration | Cross-Repository Access | ❓ | Needs assessment |
-| AI & Collaboration | Real-time Communication | ❓ | Needs assessment |
+| Code Analysis | Semantic Search | ✅ | Has codebase search tool |
+| Development | Terminal Commands | ✅ | Can execute shell commands |
+| AI & Collaboration | Memory Management | ✅ | Can update memory system |
+| Specialized | Diagram Creation | ✅ | Can create visual diagrams |
 
 ## 🚀 Capability Enablement Plan
 
@@ -151,7 +123,7 @@ This framework helps us identify what capabilities each agent has and what they 
 3. **Memory Management**: Enable persistent memory for all agents
 4. **Collaboration Framework**: Standardized communication protocols
 
-## 🔍 Assessment Questions for Jessica & Elsie
+## 🔍 Assessment Questions for New Agents
 
 ### **Basic Capabilities**
 1. Can you read files from the current repository?
@@ -165,7 +137,7 @@ This framework helps us identify what capabilities each agent has and what they 
 2. Can you access web information?
 3. Do you have memory management tools?
 4. Can you create diagrams or visualizations?
-5. Can you work with N8N workflows? (Jessica)
+5. Can you work with specialized tools or platforms?
 
 ### **Collaboration Capabilities**
 1. Can you update shared documents?
