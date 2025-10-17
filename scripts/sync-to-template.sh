@@ -42,11 +42,17 @@ TEMPLATE_PATHS=(
   "LICENCE"
 )
 
-# Placeholder transformations
-declare -A TRANSFORMATIONS=(
-  ["pan-constitution-dev"]="{{PROJECT_NAME}}"
-  ["Pan Constitution"]="{{PROJECT_DISPLAY_NAME}}"
-  ["kewtyboi"]="{{GITHUB_ORG}}"
+# Placeholder transformations (portable: works with Bash 3.2+)
+SEARCH_PATTERNS=(
+  "pan-constitution-dev"
+  "Pan Constitution"
+  "kewtyboi"
+)
+
+REPLACE_PATTERNS=(
+  "{{PROJECT_NAME}}"
+  "{{PROJECT_DISPLAY_NAME}}"
+  "{{GITHUB_ORG}}"
 )
 
 # Print usage
@@ -187,23 +193,35 @@ echo -e "  Synced: $SYNCED_COUNT"
 echo -e "  Skipped: $SKIPPED_COUNT"
 echo ""
 
-# Apply transformations
+# Apply transformations (portable: uses Perl instead of sed)
 if [ "$TRANSFORM" = true ] && [ "$DRY_RUN" = false ]; then
   echo -e "${GREEN}Applying placeholder transformations...${NC}"
 
-  for search in "${!TRANSFORMATIONS[@]}"; do
-    replace="${TRANSFORMATIONS[$search]}"
+  # Check if perl is available
+  if ! command -v perl &> /dev/null; then
+    echo -e "${RED}Error: perl is required for transformations but not found${NC}"
+    echo -e "${YELLOW}Please install perl or run without --transform${NC}"
+    exit 1
+  fi
+
+  for i in "${!SEARCH_PATTERNS[@]}"; do
+    search="${SEARCH_PATTERNS[$i]}"
+    replace="${REPLACE_PATTERNS[$i]}"
     echo -e "${BLUE}  → Replacing '$search' with '$replace'${NC}"
 
     # Find and replace in all markdown files
-    find "$TARGET_REPO" -type f -name "*.md" -not -path "*/node_modules/*" -exec sed -i "s/$search/$replace/g" {} \;
+    # Using \Q...\E to escape special regex characters
+    find "$TARGET_REPO" -type f -name "*.md" -not -path "*/node_modules/*" \
+      -exec perl -pi -e "s/\Q$search\E/$replace/g" {} \;
 
     # Find and replace in YAML files
-    find "$TARGET_REPO" -type f -name "*.yml" -not -path "*/node_modules/*" -exec sed -i "s/$search/$replace/g" {} \;
-    find "$TARGET_REPO" -type f -name "*.yaml" -not -path "*/node_modules/*" -exec sed -i "s/$search/$replace/g" {} \;
+    find "$TARGET_REPO" -type f \( -name "*.yml" -o -name "*.yaml" \) \
+      -not -path "*/node_modules/*" \
+      -exec perl -pi -e "s/\Q$search\E/$replace/g" {} \;
 
     # Find and replace in JSON files
-    find "$TARGET_REPO" -type f -name "*.json" -not -path "*/node_modules/*" -exec sed -i "s/$search/$replace/g" {} \;
+    find "$TARGET_REPO" -type f -name "*.json" -not -path "*/node_modules/*" \
+      -exec perl -pi -e "s/\Q$search\E/$replace/g" {} \;
   done
 
   echo -e "${GREEN}  ✓ Transformations applied${NC}"
