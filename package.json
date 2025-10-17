@@ -1,13 +1,36 @@
 {
-  "name": "pan-constitution-dev",
+  "name": "{{PROJECT_SLUG}}",
   "version": "1.0.0",
-  "private": true,
+  "description": "{{PROJECT_DESCRIPTION}}",
   "scripts": {
-    "lint:md": "markdownlint '.agent/**/*.md' --ignore node_modules",
-    "lint:spelling": "cspell '.agent/**/*.md' --no-progress"
+    "docs:index": "node scripts/generate-docs-index-v2.js",
+    "docs:index:output": "node scripts/generate-docs-index-v2.js --output",
+    "lint:md": "markdownlint '**/*.md' --ignore node_modules --ignore .git",
+    "lint:spelling": "cspell '**/*.md' --no-progress",
+    "format": "prettier --write '**/*.{md,json,yml,yaml}'",
+    "validate": "npm run lint:md && npm run lint:spelling"
   },
+  "repository": {
+    "type": "git",
+    "url": "{{PROJECT_REPOSITORY_URL}}"
+  },
+  "keywords": [
+    "pan-constitution",
+    "ai-agents",
+    "documentation",
+    "governance"
+  ],
+  "author": "{{PROJECT_TEAM}}",
+  "license": "MIT",
   "devDependencies": {
+    "@types/node": "^20.0.0",
     "cspell": "^8.0.0",
-    "markdownlint-cli": "^0.39.0"
+    "js-yaml": "^4.1.0",
+    "markdownlint-cli": "^0.39.0",
+    "prettier": "^3.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
+
