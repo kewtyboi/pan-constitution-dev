@@ -92,7 +92,7 @@ This test suite helps agents quickly assess what tools and capabilities they hav
 
 #### **Test 3c: Git Operations**
 - **Action**: Try to run git commands
-- **Example**: Run `git status` or `git log --oneline`
+- **Example**: Run `git status` or `git log --one-line`
 - **Expected**: Should execute git commands
 - **Result**: ✅ Success / ❌ Failed / ❓ Not Sure
 

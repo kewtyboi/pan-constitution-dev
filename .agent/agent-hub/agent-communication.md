@@ -99,7 +99,7 @@ When passing work to another agent:
 - Issue #[number]
 - PR #[number]
 - [Relevant file paths]
-```
+```text
 
 ### Insight Sharing Template
 
@@ -123,7 +123,7 @@ When sharing a breakthrough or learning:
 **Related:**
 - [Relevant patterns or frameworks]
 - [Similar situations]
-```
+```text
 
 ## Introduction Template
 
@@ -153,7 +153,7 @@ When sharing a breakthrough or learning:
 [Something personal or interesting about you]
 
 ---
-```
+```text
 
 ## Active Participants
 

@@ -1,0 +1,99 @@
+# Markdownlint Configuration for NeuroNarnia
+# This configuration ensures consistent markdown formatting across the project
+# while accommodating the specific needs of technical documentation
+
+# Default rule settings
+default: true
+
+# Rule customizations
+MD001: true # Heading levels should only increment by one level at a time
+MD003: # Heading style
+  style: "atx" # Use # style headings
+MD004: # Unordered list style
+  style: "dash" # Use - for unordered lists
+MD005: true # Inconsistent indentation for list items
+MD007: # Unordered list indentation
+  indent: 2 # 2 spaces for list indentation
+MD009: # Trailing spaces
+  br_spaces: 2 # Allow 2 trailing spaces for line breaks
+MD010: true # Hard tabs
+MD011: true # Reversed link syntax
+# MD012 disabled below
+# MD013 disabled below
+MD014: true # Dollar signs used before commands without showing output
+MD018: true # No space after hash on atx style heading
+MD019: true # Multiple spaces after hash on atx style heading
+MD020: true # No space inside hashes on closed atx style heading
+MD021: true # Multiple spaces inside hashes on closed atx style heading
+# MD022 disabled below
+MD023: true # Headings must start at the beginning of the line
+# MD024 disabled below
+MD025: # Multiple top level headings in the same document
+  front_matter_title: "^\\s*title\\s*[:=]" # Allow title in front matter
+MD026: # Trailing punctuation in heading
+  punctuation: ".,;:!?" # Don't allow these at end of headings
+MD027: true # Multiple spaces after blockquote symbol
+MD028: true # Blank line inside blockquote
+MD029: # Ordered list item prefix
+  style: "ordered" # Use 1. 2. 3. style
+MD030: # Spaces after list markers
+  ul_single: 1 # 1 space after unordered list marker
+  ol_single: 1 # 1 space after ordered list marker
+  ul_multi: 1 # 1 space for multi-line unordered lists
+  ol_multi: 1 # 1 space for multi-line ordered lists
+MD031: true # Fenced code blocks should be surrounded by blank lines
+# MD032 disabled below
+MD033: # Inline HTML
+  allowed_elements: ["br", "sub", "sup", "kbd", "details", "summary"] # Allow specific HTML elements
+MD034: true # Bare URL used
+MD035: true # Horizontal rule style
+MD036: true # Emphasis used instead of a heading
+MD037: true # Spaces inside emphasis markers
+MD038: true # Spaces inside code span elements
+MD039: true # Spaces inside link text
+# MD040 disabled below
+MD041: # First line in file should be a top level heading
+  front_matter_title: "^\\s*(title|name)\\s*[:=]" # Allow title or name in front matter
+MD042: true # No empty links
+MD043: false # Required heading structure - disabled for flexibility
+MD044: # Proper names should have the correct capitalization
+  names:
+    [
+      "NeuroNarnia",
+      "GitHub",
+      "JavaScript",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "Supabase",
+      "JWT",
+      "API",
+      "CI/CD",
+      "WCAG",
+      "GDPR",
+    ]
+  code_blocks: false # Don't check code blocks
+MD045: true # Images should have alternate text (alt text)
+MD046: # Code block style
+  style: "fenced" # Use ``` style code blocks
+MD047: true # Files should end with a single newline character
+MD048: # Code fence style
+  style: "backtick" # Use ``` instead of ~~~
+MD049: # Emphasis style
+  style: "consistent" # Enforce consistency but allow either marker
+MD050: # Strong style
+  style: "consistent"
+MD051: true # Link fragments should be valid
+MD052: true # Reference links and images should use a label that is defined
+MD053: true # Link and image reference definitions should be needed
+
+# Disable rules that conflict with project conventions
+MD002: false # First heading should be a top level heading - disabled for flexibility in docs
+MD006: false # Consider starting bulleted lists at the beginning of the line - disabled for indented lists
+MD008: false # Trailing spaces - handled by MD009 with specific configuration
+MD013: false
+MD024: false
+MD022: false
+MD032: false
+MD012: false
+MD040: false

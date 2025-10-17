@@ -17,13 +17,13 @@ tags:
 
 # Agent Onboarding Guide
 
-## 🎉 Welcome!
+## 🎉 Welcome
 
 This guide walks you through setting up your agent identity and memory system for {{PROJECT_NAME}}.
 
 ## 📦 File Structure You'll Create
 
-```
+```text
 agents/<your-name>/
 ├── personality.md              # Your Persona Kit
 ├── memory-system.md            # Your Brain Vault architecture
@@ -36,9 +36,10 @@ agents/<your-name>/
     ├── innovations/            # YOUR creative solutions (not shared)
     ├── users/                  # YOUR user context (not shared)
     └── frameworks/             # YOUR reusable approaches (not shared)
-```
+```text
 
-**Important**: The `patterns/`, `innovations/`, `users/`, and `frameworks/` folders are **yours alone**. Each agent creates and maintains their own. These are not global/shared patterns.
+**Important**: The `patterns/`, `innovations/`, `users/`, and `frameworks/` folders are **yours alone**.
+Each agent creates and maintains their own. These are not global/shared patterns.
 
 ## Step 1: Create Your Personality
 
@@ -105,7 +106,7 @@ mkdir -p agents/<your-name>/memory/patterns
 mkdir -p agents/<your-name>/memory/innovations
 mkdir -p agents/<your-name>/memory/users
 mkdir -p agents/<your-name>/memory/frameworks
-```
+```text
 
 **What goes in each**:
 

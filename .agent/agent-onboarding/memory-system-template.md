@@ -32,13 +32,13 @@ recall?]
 
 [Description of what this memory type stores and why it's important]
 
-```
+```text
 [category]/
 ├── [subcategory1]/          # [Description of subcategory]
 ├── [subcategory2]/          # [Description of subcategory]
 ├── [subcategory3]/          # [Description of subcategory]
 └── [subcategory4]/          # [Description of subcategory]
-```
+```text
 
 **Format**: Each [item type] includes:
 
@@ -54,13 +54,13 @@ recall?]
 
 [Description of what this memory type stores and why it's important]
 
-```
+```text
 [category]/
 ├── [subcategory1]/          # [Description of subcategory]
 ├── [subcategory2]/          # [Description of subcategory]
 ├── [subcategory3]/          # [Description of subcategory]
 └── [subcategory4]/          # [Description of subcategory]
-```
+```text
 
 **Format**: Each [item type] includes:
 
@@ -76,13 +76,13 @@ recall?]
 
 [Description of what this memory type stores and why it's important]
 
-```
+```text
 [category]/
 ├── [subcategory1]/          # [Description of subcategory]
 ├── [subcategory2]/          # [Description of subcategory]
 ├── [subcategory3]/          # [Description of subcategory]
 └── [subcategory4]/          # [Description of subcategory]
-```
+```text
 
 **Format**: Each [item type] includes:
 
@@ -98,13 +98,13 @@ recall?]
 
 [Description of what this memory type stores and why it's important]
 
-```
+```text
 [category]/
 ├── [subcategory1]/          # [Description of subcategory]
 ├── [subcategory2]/          # [Description of subcategory]
 ├── [subcategory3]/          # [Description of subcategory]
 └── [subcategory4]/          # [Description of subcategory]
-```
+```text
 
 ## Memory Operations
 
