@@ -1,0 +1,86 @@
+# Prettier Configuration for NeuroNarnia
+# Ensures consistent formatting across markdown and other supported files
+
+# Print width - balance readability with line length
+printWidth: 120
+
+# Tab width for indentation
+tabWidth: 2
+
+# Use spaces instead of tabs
+useTabs: false
+
+# Semicolons in JavaScript/TypeScript (when applicable)
+semi: true
+
+# Use single quotes for strings
+singleQuote: true
+
+# Quote properties in objects only when necessary
+quoteProps: "as-needed"
+
+# Trailing commas in multi-line structures
+trailingComma: "es5"
+
+# Spaces inside object literals
+bracketSpacing: true
+
+# Bracket line for JSX (when applicable)
+bracketSameLine: false
+
+# Arrow function parentheses
+arrowParens: "avoid"
+
+# Range formatting - format entire file
+rangeStart: 0
+
+# Parser - let Prettier auto-detect
+requirePragma: false
+insertPragma: false
+
+# Prose wrapping for markdown
+proseWrap: "always"
+
+# HTML whitespace sensitivity
+htmlWhitespaceSensitivity: "css"
+
+# Vue files indentation (when applicable)
+vueIndentScriptAndStyle: false
+
+# End of line character
+endOfLine: "lf"
+
+# Embedded language formatting
+embeddedLanguageFormatting: "auto"
+
+# Single attribute per line in HTML/JSX
+singleAttributePerLine: false
+
+# Override settings for specific file types
+overrides:
+  # Markdown specific settings
+  - files: "*.md"
+    options:
+      printWidth: 120
+      proseWrap: "always"
+      tabWidth: 2
+      useTabs: false
+
+  # JSON specific settings
+  - files: "*.json"
+    options:
+      printWidth: 120
+      tabWidth: 2
+
+  # YAML specific settings
+  - files: ["*.yml", "*.yaml"]
+    options:
+      printWidth: 120
+      tabWidth: 2
+      singleQuote: false
+
+  # Package.json specific settings
+  - files: "package.json"
+    options:
+      printWidth: 120
+      tabWidth: 2
