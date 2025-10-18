@@ -1,99 +1,226 @@
-# Markdownlint Configuration for NeuroNarnia
-# This configuration ensures consistent markdown formatting across the project
-# while accommodating the specific needs of technical documentation
+# Markdownlint Configuration for the Pan Constitution Template Project
+# This configuration ensures consistent Markdown formatting across the project.
+# For a full list of rules and their options, see: https://github.com/DavidAnson/markdownlint/blob/main/schema.json
 
-# Default rule settings
+# Default rule settings: By default, all rules are enabled.
+# We then customize or disable specific rules below.
 default: true
 
-# Rule customizations
-MD001: true # Heading levels should only increment by one level at a time
-MD003: # Heading style
-  style: "atx" # Use # style headings
-MD004: # Unordered list style
-  style: "dash" # Use - for unordered lists
-MD005: true # Inconsistent indentation for list items
-MD007: # Unordered list indentation
-  indent: 2 # 2 spaces for list indentation
-MD009: # Trailing spaces
-  br_spaces: 2 # Allow 2 trailing spaces for line breaks
-MD010: true # Hard tabs
-MD011: true # Reversed link syntax
-# MD012 disabled below
-# MD013 disabled below
-MD014: true # Dollar signs used before commands without showing output
-MD018: true # No space after hash on atx style heading
-MD019: true # Multiple spaces after hash on atx style heading
-MD020: true # No space inside hashes on closed atx style heading
-MD021: true # Multiple spaces inside hashes on closed atx style heading
-# MD022 disabled below
-MD023: true # Headings must start at the beginning of the line
-# MD024 disabled below
-MD025: # Multiple top level headings in the same document
-  front_matter_title: "^\\s*title\\s*[:=]" # Allow title in front matter
-MD026: # Trailing punctuation in heading
-  punctuation: ".,;:!?" # Don't allow these at end of headings
-MD027: true # Multiple spaces after blockquote symbol
-MD028: true # Blank line inside blockquote
-MD029: # Ordered list item prefix
-  style: "ordered" # Use 1. 2. 3. style
-MD030: # Spaces after list markers
-  ul_single: 1 # 1 space after unordered list marker
-  ol_single: 1 # 1 space after ordered list marker
-  ul_multi: 1 # 1 space for multi-line unordered lists
-  ol_multi: 1 # 1 space for multi-line ordered lists
-MD031: true # Fenced code blocks should be surrounded by blank lines
-# MD032 disabled below
-MD033: # Inline HTML
-  allowed_elements: ["br", "sub", "sup", "kbd", "details", "summary"] # Allow specific HTML elements
-MD034: true # Bare URL used
-MD035: true # Horizontal rule style
-MD036: true # Emphasis used instead of a heading
-MD037: true # Spaces inside emphasis markers
-MD038: true # Spaces inside code span elements
-MD039: true # Spaces inside link text
-# MD040 disabled below
-MD041: # First line in file should be a top level heading
-  front_matter_title: "^\\s*(title|name)\\s*[:=]" # Allow title or name in front matter
-MD042: true # No empty links
-MD043: false # Required heading structure - disabled for flexibility
-MD044: # Proper names should have the correct capitalization
-  names:
-    [
-      "NeuroNarnia",
-      "GitHub",
-      "JavaScript",
-      "TypeScript",
-      "Node.js",
-      "PostgreSQL",
-      "Supabase",
-      "JWT",
-      "API",
-      "CI/CD",
-      "WCAG",
-      "GDPR",
-    ]
-  code_blocks: false # Don't check code blocks
-MD045: true # Images should have alternate text (alt text)
-MD046: # Code block style
-  style: "fenced" # Use ``` style code blocks
-MD047: true # Files should end with a single newline character
-MD048: # Code fence style
-  style: "backtick" # Use ``` instead of ~~~
-MD049: # Emphasis style
-  style: "consistent" # Enforce consistency but allow either marker
-MD050: # Strong style
-  style: "consistent"
-MD051: true # Link fragments should be valid
-MD052: true # Reference links and images should use a label that is defined
-MD053: true # Link and image reference definitions should be needed
+# --- Rule Customizations ---
+# Each rule is identified by its code (e.g., MD001) and can be configured with specific parameters.
 
-# Disable rules that conflict with project conventions
-MD002: false # First heading should be a top level heading - disabled for flexibility in docs
-MD006: false # Consider starting bulleted lists at the beginning of the line - disabled for indented lists
-MD008: false # Trailing spaces - handled by MD009 with specific configuration
-MD013: false
-MD024: false
-MD022: false
-MD032: false
+# MD001: Heading levels should only increment by one level at a time.
+# Ensures a logical and consistent heading structure (e.g., H1 -> H2 -> H3).
+MD001: true
+
+# MD003: Heading style.
+# We enforce the 'atx' style (using # symbols) for all headings for consistency.
+# Alternative: 'setext' for H1/H2 (using === or --- underlines).
+MD003:
+  style: "atx"
+
+# MD004: Unordered list style.
+# We use 'dash' (-) for unordered lists. This is a common and clean style.
+# Alternatives: 'asterisk' (*) or 'plus' (+).
+MD004:
+  style: "dash"
+
+# MD005: Inconsistent indentation for list items at the same level.
+# Enforces that all items in a list have the same indentation.
+MD005: true
+
+# MD007: Unordered list indentation.
+# We use an indent of 2 spaces for nested lists to maintain readability.
+MD007:
+  indent: 2
+
+# MD009: Trailing spaces.
+# We allow 2 trailing spaces to create hard line breaks (<br>).
+MD009:
+  br_spaces: 2
+
+# MD010: Hard tabs.
+# Disallows the use of hard tabs for indentation.
+MD010: true
+
+# MD011: Reversed link syntax.
+# Disallows reversed link syntax like (incorrect)[http://...].
+MD011: true
+
+# MD014: Dollar signs used before commands without showing output.
+# Enforces that shell commands are not prefixed with '$' if there is no output.
+MD014: true
+
+# MD018 & MD019: No space after hash on atx style heading & Multiple spaces after hash.
+# Enforces a single space after the # on headings (e.g., '# Heading').
+MD018: true
+MD019: true
+
+# MD020 & MD021: No space inside hashes on closed atx style heading & Multiple spaces inside hashes.
+# Enforces no spaces inside closed headings (e.g., '# Heading #').
+MD020: true
+MD021: true
+
+# MD023: Headings must start at the beginning of the line.
+# Prevents indented headings.
+MD023: true
+
+# MD025: Multiple top-level headings in the same document.
+# We allow a 'title' field in the front matter to be the top-level heading.
+MD025:
+  front_matter_title: "^\\s*title\\s*[:=]"
+
+# MD026: Trailing punctuation in heading.
+# Prevents the use of specified punctuation at the end of headings.
+MD026:
+  punctuation: ".,;:!?"
+
+# MD027: Multiple spaces after blockquote symbol.
+# Enforces a single space after the > in blockquotes.
+MD027: true
+
+# MD028: Blank line inside blockquote.
+# Disallows blank lines between blockquote lines.
+MD028: true
+
+# MD029: Ordered list item prefix.
+# Enforces that ordered lists use the 'ordered' style (1., 2., 3.).
+# Alternative: 'one' (1., 1., 1.) or 'zero' (0., 1., 2.).
+MD029:
+  style: "ordered"
+
+# MD030: Spaces after list markers.
+# Enforces a single space after list markers.
+MD030:
+  ul_single: 1
+  ol_single: 1
+  ul_multi: 1
+  ol_multi: 1
+
+# MD031: Fenced code blocks should be surrounded by blank lines.
+# Improves readability by separating code blocks from surrounding text.
+MD031: true
+
+# MD033: Inline HTML.
+# We allow a specific set of HTML elements for formatting purposes.
+# Add or remove elements as needed for your project.
+MD033:
+  allowed_elements: ["br", "sub", "sup", "kbd", "details", "summary"]
+
+# MD034: Bare URL used.
+# Disallows bare URLs, encouraging descriptive link text.
+MD034: true
+
+# MD035: Horizontal rule style.
+# Enforces a consistent style for horizontal rules (---).
+MD035: true
+
+# MD036: Emphasis used instead of a heading.
+# Prevents using emphasis (bold/italic) as a heading.
+MD036: true
+
+# MD037: Spaces inside emphasis markers.
+# Disallows spaces right after the opening marker or before the closing marker.
+MD037: true
+
+# MD038: Spaces inside code span elements.
+# Disallows spaces inside backticks for inline code.
+MD038: true
+
+# MD039: Spaces inside link text.
+# Disallows spaces inside link text.
+MD039: true
+
+# MD041: First line in file should be a top-level heading.
+# We allow 'title' or 'name' in the front matter to serve as the H1.
+MD041:
+  front_matter_title: "^\\s*(title|name)\\s*[:=]"
+
+# MD042: No empty links.
+# Disallows empty links like []().
+MD042: true
+
+# MD044: Proper names should have the correct capitalization.
+# Add your project-specific names here to enforce consistent capitalization.
+MD044:
+  names:
+    - NeuroNarnia
+    - GitHub
+    - JavaScript
+    - TypeScript
+    - Node.js
+    - PostgreSQL
+    - Supabase
+    - JWT
+    - API
+    - CI/CD
+    - WCAG
+    - GDPR
+  code_blocks: false # We don't check for proper names within code blocks.
+
+# MD045: Images should have alternate text (alt text).
+# Enforces accessibility by requiring alt text for all images.
+MD045: true
+
+# MD046: Code block style.
+# We enforce the 'fenced' style (using ```) for code blocks.
+# Alternative: 'indented'.
+MD046:
+  style: "fenced"
+
+# MD047: Files should end with a single newline character.
+# A POSIX standard for text files.
+MD047: true
+
+# MD048: Code fence style.
+# We use backticks (```) for code fences.
+# Alternative: 'tilde' (~~~).
+MD048:
+  style: "backtick"
+
+# MD049 & MD050: Emphasis and Strong style.
+# We enforce a consistent style for emphasis (italic) and strong (bold) text.
+MD049:
+  style: "consistent"
+MD050:
+  style: "consistent"
+
+# MD051, MD052, MD053: Link fragments and references.
+# Ensures that all link fragments and references are valid and defined.
+MD051: true
+MD052: true
+MD053: true
+
+# --- Disabled Rules ---
+# These rules are disabled because they conflict with our project's conventions or are too restrictive.
+
+# MD002: First heading should be a top-level heading. Disabled for flexibility in document structure.
+MD002: false
+
+# MD006: Consider starting bulleted lists at the beginning of the line. Disabled to allow for indented lists within other content.
+MD006: false
+
+# MD008: Trailing spaces. Handled by MD009 with a specific configuration for hard line breaks.
+MD008: false
+
+# MD012: Multiple consecutive blank lines. Disabled to allow for intentional spacing.
 MD012: false
+
+# MD013: Line length. We manage this with Prettier and EditorConfig, so this rule is redundant.
+MD013: false
+
+# MD022: Headings should be surrounded by blank lines. Disabled for flexibility in spacing around headings.
+MD022: false
+
+# MD024: Multiple headings with the same content. Disabled as it can be useful to have repeated headings in long documents.
+MD024: false
+
+# MD032: Headings should be surrounded by blank lines. Disabled for flexibility.
+MD032: false
+
+# MD040: Fenced code blocks should have a language specified. Disabled as not all code blocks require a language.
 MD040: false
+
+# MD043: Required heading structure. Disabled for flexibility in document organization.
+MD043: false
+

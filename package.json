@@ -8,7 +8,13 @@
     "lint:md": "markdownlint '**/*.md' --ignore node_modules --ignore .git",
     "lint:spelling": "cspell '**/*.md' --no-progress",
     "format": "prettier --write '**/*.{md,json,yml,yaml}'",
-    "validate": "npm run lint:md && npm run lint:spelling"
+    "validate": "npm run lint:md && npm run lint:spelling",
+    "_comment_docs:index": "Generates the main index file for the documentation (INDEX.md).",
+    "_comment_docs:index:output": "Generates the documentation index and outputs it to the console instead of writing to a file.",
+    "_comment_lint:md": "Lints all Markdown files in the project to ensure they follow the rules defined in .markdownlint.yml.",
+    "_comment_lint:spelling": "Checks for spelling errors in all Markdown files using the cSpell dictionary.",
+    "_comment_format": "Formats all Markdown, JSON, and YAML files using Prettier to ensure consistent styling.",
+    "_comment_validate": "Runs all linting and spelling checks to validate the project's documentation."
   },
   "repository": {
     "type": "git",
