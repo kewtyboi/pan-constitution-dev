@@ -1,0 +1,57 @@
+# EditorConfig helps maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs.
+# For more information: https://editorconfig.org
+
+# Set `root = true` to stop EditorConfig from looking for `.editorconfig` files in parent directories.
+root = true
+
+# Universal settings for all file types
+[*]
+# Set the character set to UTF-8 to ensure proper encoding of all characters.
+charset = utf-8
+
+# Set the line ending style to `lf` (line feed) for consistent line endings across different operating systems.
+end_of_line = lf
+
+# Ensure that files end with a single newline character.
+insert_final_newline = true
+
+# Remove any whitespace characters at the end of lines.
+trim_trailing_whitespace = true
+
+# Settings for Markdown files
+[*.{md,markdown}]
+# Use spaces for indentation instead of tabs.
+indent_style = space
+
+# Set the number of spaces for each indentation level to 2.
+# This is a common convention for Markdown files.
+indent_size = 2
+
+# Set a maximum line length of 120 characters to improve readability.
+# You can adjust this value based on your project's style guide.
+max_line_length = 120
+
+# Settings for YAML files
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# Settings for JSON files
+[*.json]
+indent_style = space
+indent_size = 2
+
+# Settings for JavaScript and TypeScript files
+[*.{js,ts,jsx,tsx}]
+indent_style = space
+indent_size = 2
+
+# Settings for shell scripts
+[*.{sh,bash}]
+indent_style = space
+indent_size = 2
+
+# Settings for Makefiles, which require tab indentation
+[Makefile]
+indent_style = tab
+
