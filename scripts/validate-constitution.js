@@ -50,7 +50,7 @@ const REQUIRED_STRUCTURE = {
     'docs/tutorials',
     '.agent',
     ".agent/agent-role-profiles",
-    '.agent/onboarding',
+    ".agent/agent-onboarding",
     '.specify',
     '.specify/memory',
     '.github',
@@ -63,7 +63,7 @@ const REQUIRED_STRUCTURE = {
 // Documents that must have front matter
 const FRONT_MATTER_REQUIRED = [
   ".agent/agent-role-profiles/*.md",
-  '.agent/onboarding/*.md',
+  ".agent/agent-onboarding/*.md"
   'docs/**/*.md',
 ];
 
