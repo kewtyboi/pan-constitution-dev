@@ -65,6 +65,7 @@ function shouldExclude(filePath) {
  */
 function validateLink(baseFile, link) {
   const { url, text, line } = link;
+  const rootDir = process.cwd(); // Get the repository root
   
   // Skip external links (http/https)
   if (url.startsWith('http://') || url.startsWith('https://')) {
@@ -88,9 +89,15 @@ function validateLink(baseFile, link) {
     return null; // Just an anchor
   }
   
-  // Resolve relative path
-  const baseDir = path.dirname(baseFile);
-  const absolutePath = path.resolve(baseDir, filePath);
+  let absolutePath;
+  if (filePath.startsWith('/')) {
+    // Resolve repository-root links relative to the rootDir
+    absolutePath = path.join(rootDir, filePath);
+  } else {
+    // Resolve relative path
+    const baseDir = path.dirname(baseFile);
+    absolutePath = path.resolve(baseDir, filePath);
+  }
   
   // Check if file exists
   if (!fs.existsSync(absolutePath)) {
