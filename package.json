@@ -8,9 +8,12 @@
     "lint:md": "markdownlint '**/*.md' --ignore node_modules --ignore .git",
     "lint:spelling": "cspell '**/*.md' --no-progress",
     "format": "prettier --write '**/*.{md,json,yml,yaml}'",
-    "validate": "npm run lint:md && npm run lint:spelling",
-    "check:constitution": "node scripts/validate-constitution.js",
-    "check:placeholders": "node scripts/check-placeholder.js"
+    "format:check": "prettier --check '**/*.{md,json,yml,yaml}'",
+    "validate": "npm run lint:md && npm run lint:spelling && npm run validate:frontmatter && npm run validate:links",
+    "validate:frontmatter": "node scripts/validate-frontmatter.js",
+    "validate:links": "node scripts/validate-links.js",
+    "hooks:setup": "bash scripts/setup-pre-commit.sh",
+    "preinstall": "node -e \"if (process.env.CI !== 'true') console.log('\\n💡 Run \\\"npm run hooks:setup\\\" after install to enable Git hooks\\n')\""
   },
   "repository": {
     "type": "git",
