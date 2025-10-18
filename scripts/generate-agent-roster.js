@@ -23,7 +23,7 @@ const { parseFrontMatter } = require('./utils/frontmatter');
 
 // Configuration
 const ROOT_DIR = path.resolve(__dirname, '..');
-const PROFILES_DIR = path.join(ROOT_DIR, '.agent', 'profiles');
+const PROFILES_DIR = path.join(ROOT_DIR, ".agent", "agent-role-profiles");
 
 // Parse command-line arguments
 const args = process.argv.slice(2);
