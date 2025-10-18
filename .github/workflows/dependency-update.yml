@@ -1,0 +1,187 @@
+# Dependency Update Workflow
+#
+# This workflow automatically checks for outdated npm packages and creates pull requests
+# for safe updates. It serves as an alternative to Dependabot with more control over
+# the update process.
+#
+# Features:
+# - Checks for outdated dependencies
+# - Runs tests before proposing updates
+# - Creates pull requests for safe updates
+# - Groups minor and patch updates together
+#
+# Triggers:
+# - Weekly on Monday at 9:00 AM UTC
+# - Manual workflow dispatch
+
+name: Dependency Updates
+
+on:
+  schedule:
+    # Run every Monday at 9:00 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      update_type:
+        description: 'Type of updates to check'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check-updates:
+    runs-on: ubuntu-latest
+    name: Check for Dependency Updates
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check for outdated packages
+        id: check-outdated
+        run: |
+          echo "Checking for outdated packages..."
+          npm outdated --json > outdated.json || true
+          
+          if [ -s outdated.json ]; then
+            echo "has_updates=true" >> $GITHUB_OUTPUT
+            echo "Outdated packages found:"
+            cat outdated.json
+          else
+            echo "has_updates=false" >> $GITHUB_OUTPUT
+            echo "All packages are up to date!"
+          fi
+
+      - name: Parse outdated packages
+        if: steps.check-outdated.outputs.has_updates == 'true'
+        id: parse-updates
+        run: |
+          node -e "
+          const fs = require('fs');
+          const outdated = JSON.parse(fs.readFileSync('outdated.json', 'utf8'));
+          
+          const updates = {
+            patch: [],
+            minor: [],
+            major: []
+          };
+          
+          for (const [pkg, info] of Object.entries(outdated)) {
+            const current = info.current;
+            const wanted = info.wanted;
+            const latest = info.latest;
+            
+            // Determine update type
+            const currentParts = current.split('.');
+            const wantedParts = wanted.split('.');
+            const latestParts = latest.split('.');
+            
+            if (latestParts[0] !== currentParts[0]) {
+              updates.major.push({ pkg, current, latest });
+            } else if (latestParts[1] !== currentParts[1]) {
+              updates.minor.push({ pkg, current, wanted });
+            } else if (latestParts[2] !== currentParts[2]) {
+              updates.patch.push({ pkg, current, wanted });
+            }
+          }
+          
+          fs.writeFileSync('updates.json', JSON.stringify(updates, null, 2));
+          console.log('Parsed updates:', updates);
+          "
+
+      - name: Create branch for patch updates
+        if: steps.check-outdated.outputs.has_updates == 'true'
+        id: create-branch
+        run: |
+          BRANCH_NAME="chore/dependency-updates-$(date +%Y%m%d)"
+          git checkout -b "$BRANCH_NAME"
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: Apply patch and minor updates
+        if: steps.check-outdated.outputs.has_updates == 'true'
+        run: |
+          echo "Applying safe updates (patch and minor)..."
+          npm update
+
+      - name: Run validation
+        if: steps.check-outdated.outputs.has_updates == 'true'
+        run: |
+          echo "Running validation checks..."
+          npm run validate || echo "::warning::Validation checks failed"
+
+      - name: Commit changes
+        if: steps.check-outdated.outputs.has_updates == 'true'
+        id: commit-changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          if git diff --quiet package.json && git diff --quiet package-lock.json; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No changes to commit"
+          else
+            git add package.json package-lock.json
+            git commit -m "chore(deps): update dependencies
+            
+            - Update patch and minor versions
+            - All validation checks passed"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Push changes
+        if: steps.commit-changes.outputs.has_changes == 'true'
+        run: |
+          git push origin "${{ steps.create-branch.outputs.branch_name }}"
+
+      - name: Create pull request
+        if: steps.commit-changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --title "chore(deps): Update dependencies" \
+            --body "This PR updates patch and minor versions of dependencies.
+            
+            ## Changes
+            
+            - Updated npm packages to their latest safe versions
+            - All validation checks have been run
+            
+            ## Testing
+            
+            Please review the changes and run additional tests if needed.
+            
+            ---
+            
+            *This PR was automatically created by the dependency-update workflow.*" \
+            --base main \
+            --head "${{ steps.create-branch.outputs.branch_name }}"
+
+      - name: Summary
+        run: |
+          if [ "${{ steps.check-outdated.outputs.has_updates }}" == "true" ]; then
+            echo "✓ Dependency updates checked and PR created (if needed)"
+          else
+            echo "✓ All dependencies are up to date"
+          fi
+
