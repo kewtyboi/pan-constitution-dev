@@ -18,9 +18,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Functions
 print_header() {
-    echo -e "\\n${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "\n${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo -e "${BLUE}  Pan Constitution Template Bootstrap${NC}"
-    echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\\n"
+    echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
 }
 
 print_success() {
@@ -42,7 +42,7 @@ print_info() {
 # Prompt for project information
 prompt_project_info() {
     echo -e "${BLUE}Project Information${NC}"
-    echo -e "Please provide the following information:\\n"
+    echo -e "Please provide the following information:\n"
     
     # Project name (kebab-case)
     while true; do
@@ -57,8 +57,8 @@ prompt_project_info() {
     # Project display name
     read -p "Project display name (e.g., My Awesome Project): " PROJECT_DISPLAY_NAME
     if [ -z "$PROJECT_DISPLAY_NAME" ]; then
-        # Convert kebab-case to Title Case
-        PROJECT_DISPLAY_NAME=$(echo "$PROJECT_NAME" | sed \'s/-/ /g\' | sed \'s/\\b\\(.\\)/\\u\\1/g\')
+        # Convert kebab-case to Title Case using Perl for portability
+        PROJECT_DISPLAY_NAME=$(echo "$PROJECT_NAME" | perl -pe 's/(^|-)([a-z])/\U$2/g; s/-/ /g')
     fi
     
     # GitHub organization
@@ -89,12 +89,12 @@ prompt_project_info() {
         PROJECT_DESCRIPTION="A project following the Pan Constitution governance framework"
     fi
     
-    echo "\\n"
+    echo "\n"
 }
 
 # Display configuration summary
 display_summary() {
-    echo -e "\\n${BLUE}Configuration Summary${NC}"
+    echo -e "\n${BLUE}Configuration Summary${NC}"
     echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo -e "Project Name:        ${GREEN}$PROJECT_NAME${NC}"
     echo -e "Display Name:        ${GREEN}$PROJECT_DISPLAY_NAME${NC}"
@@ -103,7 +103,7 @@ display_summary() {
     echo -e "Initiative:          ${GREEN}$INITIAL_INITIATIVE${NC}"
     echo -e "Creation Date:       ${GREEN}$CREATION_DATE${NC}"
     echo -e "Description:         ${GREEN}$PROJECT_DESCRIPTION${NC}"
-    echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n"
+    echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
     
     read -p "Proceed with these settings? (y/n): " CONFIRM
     if [[ ! $CONFIRM =~ ^[Yy]$ ]]; then
@@ -114,13 +114,13 @@ display_summary() {
 
 # Replace placeholders in files
 replace_placeholders() {
-    echo -e "\\n${BLUE}Replacing Placeholders${NC}"
+    echo -e "\n${BLUE}Replacing Placeholders${NC}"
     
     # Find all text files (excluding .git, node_modules, binary files)
     FILES=$(find "$SCRIPT_DIR" -type f \
-        -not -path "*/\\.git/*" \
+        -not -path "*/\.git/*" \
         -not -path "*/node_modules/*" \
-        -not -path "*/\\.next/*" \
+        -not -path "*/\.next/*" \
         -not -path "*/dist/*" \
         -not -path "*/build/*" \
         -not -name "*.png" \
@@ -153,12 +153,12 @@ replace_placeholders() {
 
 # Initialize git repository
 initialize_git() {
-    echo -e "\\n${BLUE}Git Initialization${NC}"
+    echo -e "\n${BLUE}Git Initialization${NC}"
     
-    if [ -d "$SCRIPT_DIR/\\.git" ]; then
+    if [ -d "$SCRIPT_DIR/\.git" ]; then
         read -p "Git repository already exists. Reinitialize? (y/n): " REINIT
         if [[ $REINIT =~ ^[Yy]$ ]]; then
-            rm -rf "$SCRIPT_DIR/\\.git"
+            rm -rf "$SCRIPT_DIR/\.git"
             git init
             print_success "Git repository reinitialized"
         else
@@ -172,7 +172,7 @@ initialize_git() {
     
     # Set up initial commit
     git add .
-    git commit -m "chore: initialize project from pan-constitution-template\\n\\nProject: $PROJECT_DISPLAY_NAME\\nOrganization: $GITHUB_ORG\\nInitiative: $INITIAL_INITIATIVE\\n\\nInitialized from pan-constitution-template with:\\n- Pan Constitution governance framework\\n- Agent system with 19 role profiles\\n- Diátaxis documentation structure\\n- CI/CD workflows\\n- Issue and PR templates"
+    git commit -m "chore: initialize project from pan-constitution-template\n\nProject: $PROJECT_DISPLAY_NAME\nOrganization: $GITHUB_ORG\nInitiative: $INITIAL_INITIATIVE\n\nInitialized from pan-constitution-template with:\n- Pan Constitution governance framework\n- Agent system with 19 role profiles\n- Diátaxis documentation structure\n- CI/CD workflows\n- Issue and PR templates"
     
     print_success "Initial commit created"
     
@@ -188,45 +188,47 @@ initialize_git() {
 
 # Install dependencies
 install_dependencies() {
-    echo -e "\\n${BLUE}Installing Dependencies${NC}"
+    echo -e "\n${BLUE}Installing Dependencies${NC}"
     
     if [ -f "$SCRIPT_DIR/package.json" ]; then
         if command -v npm &> /dev/null; then
             npm install
             print_success "Dependencies installed"
         else
-            print_warning "npm not found. Please install Node.js and run: npm install"
+            print_warning "npm not found. Please install Node.js and run \'npm install\' manually, or proceed without dependencies."
+            print_info "You can install dependencies later by running \'npm install\' in the project root."
+            print_warning "Skipping dependency installation."
         fi
     fi
 }
 
 # Generate documentation index
 generate_index() {
-    echo -e "\\n${BLUE}Generating Documentation Index${NC}"
+    echo -e "\n${BLUE}Generating Documentation Index${NC}"
     
     if [ -f "$SCRIPT_DIR/package.json" ] && command -v npm &> /dev/null; then
         npm run docs:index
         print_success "INDEX.md generated"
     else
-        print_warning "Skipping INDEX.md generation. Run \'npm run docs:index\' manually"
+        print_warning "Skipping INDEX.md generation. Run 'npm run docs:index' manually"
     fi
 }
 
 # Create IDE integration
 setup_ide_integration() {
-    echo -e "\\n${BLUE}IDE Integration${NC}"
+    echo -e "\n${BLUE}IDE Integration${NC}"
     
     read -p "Which IDE are you using? (cursor/codex/none): " IDE_CHOICE
     
     case $IDE_CHOICE in
         cursor)
-            mkdir -p "$SCRIPT_DIR/\\.cursor/commands"
-            cp "$SCRIPT_DIR/\\.agent/agent-prompt/"* "$SCRIPT_DIR/\\.cursor/commands/"
+            mkdir -p "$SCRIPT_DIR/.cursor/commands"
+            cp "$SCRIPT_DIR/.agent/agent-prompt/"* "$SCRIPT_DIR/.cursor/commands/"
             print_success "Cursor IDE integration set up"
             ;;
         codex)
-            mkdir -p "$SCRIPT_DIR/\\.codex/prompts"
-            cp "$SCRIPT_DIR/\\.agent/agent-prompt/"* "$SCRIPT_DIR/\\.codex/prompts/"
+            mkdir -p "$SCRIPT_DIR/.codex/prompts"
+            cp "$SCRIPT_DIR/.agent/agent-prompt/"* "$SCRIPT_DIR/.codex/prompts/"
             print_success "Codex IDE integration set up"
             ;;
         none)
@@ -240,7 +242,7 @@ setup_ide_integration() {
 
 # Clean up bootstrap script
 cleanup() {
-    echo -e "\\n${BLUE}Cleanup${NC}"
+    echo -e "\n${BLUE}Cleanup${NC}"
     
     read -p "Remove bootstrap.sh after completion? (y/n): " REMOVE_BOOTSTRAP
     if [[ $REMOVE_BOOTSTRAP =~ ^[Yy]$ ]]; then
@@ -253,40 +255,40 @@ cleanup() {
 
 # Display next steps
 display_next_steps() {
-    echo -e "\\n${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "\n${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo -e "${GREEN}  Bootstrap Complete!${NC}"
-    echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\\n"
+    echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
     
-    echo -e "${BLUE}Next Steps:${NC}\\n"
+    echo -e "${BLUE}Next Steps:${NC}\n"
     echo "1. Review and customize:"
     echo "   - README.md - Update project-specific information"
     echo "   - AGENTS.md - Customize for your team"
     echo "   - docs/ops/governance.md - Define your governance"
-    echo "\\n"
+    echo "\n"
     echo "2. Set up GitHub repository:"
     echo "   - Create repository: https://github.com/new"
     echo "   - Push code: git push -u origin main"
     echo "   - Enable GitHub Actions"
     echo "   - Configure branch protection"
-    echo "\\n"
+    echo "\n"
     echo "3. Start development:"
     echo "   - Create your first issue"
     echo "   - Set up project board"
     echo "   - Invite team members"
     echo "   - Review .specify/memory/constitution.md"
-    echo "\\n"
+    echo "\n"
     echo "4. Documentation:"
     echo "   - Add getting-started guides"
     echo "   - Document your architecture"
     echo "   - Create ADRs for key decisions"
-    echo "\\n"
+    echo "\n"
     echo -e "${BLUE}Resources:${NC}"
     echo "   - Constitution: .specify/memory/constitution.md"
     echo "   - Agent System: .agent/"
     echo "   - Documentation: docs/"
     echo "   - Scripts: scripts/"
-    echo "\\n"
-    echo -e "${GREEN}Happy building! 🚀${NC}\\n"
+    echo "\n"
+    echo -e "${GREEN}Happy building! 🚀${NC}\n"
 }
 
 # Main execution
