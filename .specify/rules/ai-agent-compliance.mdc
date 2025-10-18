@@ -1,0 +1,173 @@
+---
+topic: project-rules
+name: AI Agent Compliance Requirements
+author: {{PROJECT_TEAM}}
+version: 1.0.0
+date: {{CREATION_DATE}}
+description: Mandatory AI agent compliance requirements and procedures for projects using the Pan Constitution Template.
+initiative: pan-constitution-template
+related_issues: []
+status: active
+tags:
+  - ai-agent
+  - compliance
+  - governance
+  - rules
+  - documentation
+---
+
+# AI Agent Compliance Requirements
+
+This document outlines the mandatory compliance requirements and procedures for all AI agents contributing to projects built with the **Pan Constitution Template**. Adherence to these rules ensures consistency, traceability, and high-quality contributions across the project lifecycle.
+
+## 🚨 CRITICAL: Enhanced Documentation Requirements
+
+**All AI agents working on projects using this template MUST follow enhanced documentation procedures:**
+
+### Mandatory First Steps
+
+1.  **Review the Project Constitution**: Understand the core principles and rules defined in [`{{CONSTITUTION_PATH}}`](mdc:{{CONSTITUTION_PATH}}).
+2.  **Review the Agent Collaboration Guide**: Read [`AGENTS.md`](mdc:AGENTS.md) completely to understand agent roles, communication protocols, and collaboration patterns.
+3.  **Identify Initiative Context**: For any work, clearly determine the relevant initiative or feature it belongs to. This should be reflected in issue tracking and commit messages.
+4.  **Plan Documentation Updates**: Before making changes, assess the potential impact across all related documents and initiatives.
+5.  **Use Enhanced YAML Front Matter**: All new or modified Markdown documents require comprehensive metadata in their YAML front matter. (See section below).
+6.  **Never proceed without completing the `AGENTS.md` checklist**: Ensure you have reviewed and understood the foundational guidelines for agent operation.
+
+### Enhanced YAML Front Matter
+
+All Markdown documents (`.md` and `.mdc` files) must include a YAML front matter block with the following structure. This metadata is crucial for documentation indexing, traceability, and AI agent processing.
+
+```yaml
+---
+topic: <Subject Area> # e.g., agent-roles, project-rules, how-to-guides
+name: <Document Name> # Human-readable title of the document
+author: <Author Name/Agent> # e.g., Manus AI, {{PROJECT_TEAM}}
+version: <Semantic Version> # e.g., 1.0.0, 2.1.3
+date: <YYYY-MM-DD> # Date of last significant update
+description: <Brief description> # Concise summary of document content
+initiative: <Initiative Name> # The project initiative this document supports
+related_issues: ["#<issue-number>"] # List of related GitHub issue numbers
+status: <active/draft/archived> # Document lifecycle status
+tags:
+  - <tag1>
+  - <tag2>
+---
+```
+
+**Customization Guidance**: Projects should adapt the `topic` and `initiative` fields to their specific needs. The `author` field can be `{{PROJECT_TEAM}}` or the name of the specific AI agent responsible for the content. The `related_issues` field should always link to relevant GitHub issues.
+
+### Automation Scripts (Example)
+
+Projects using this template are encouraged to implement automation to assist with compliance. Examples include:
+
+```bash
+# Example: Add enhanced YAML front matter to new/modified files
+# This script would typically auto-detect relevant metadata or prompt for it.
+./scripts/add-yaml-frontmatter.sh
+
+# Example: Generate or update a comprehensive documentation index
+./scripts/generate-docs-index.sh
+
+# Example: Validate enhanced YAML front matter (often integrated into CI/CD)
+# This script would check for correctness and completeness of metadata.
+./scripts/validate-yaml-frontmatter.sh
+```
+
+**Customization Guidance**: The exact scripts and their names will vary per project. These are placeholders to illustrate the type of automation that supports compliance. Ensure your project's `package.json` or equivalent build system includes commands for these tasks.
+
+## 🛑 ENFORCEMENT: Failure to follow these enhanced requirements will result in:
+
+-   **Immediate Pull Request (PR) rejection** and required rework.
+-   **Request to re-read [`AGENTS.md`](mdc:AGENTS.md)** and restart the task with correct procedures.
+-   **No exceptions** - all AI agents and human contributors must comply with these standards.
+
+## 📖 REQUIRED READING ORDER:
+
+To ensure foundational understanding, all agents and contributors must review key documents in the following order:
+
+1.  **First:** Read [`AGENTS.md`](mdc:AGENTS.md) completely to understand your role and collaboration guidelines.
+2.  **Second:** Return to [`README.md`](mdc:README.md) for the project's overall context, goals, and structure.
+3.  **Third:** Follow the mandatory first steps outlined in [`AGENTS.md`](mdc:AGENTS.md) and this document.
+
+## AI Agent Workflow (Example)
+
+This is an illustrative workflow for an AI agent contributing to a feature. Adapt this to your specific task and project setup.
+
+```bash
+# 1. MANDATORY: Review core agent instructions and project context
+cat AGENTS.md
+cat README.md
+
+# 2. Identify the initiative and relevant issues for your current task
+# Example: Search for an issue related to 'user-onboarding'
+grep -r "initiative: user-onboarding" docs/ | head -n 5
+
+# 3. Create a feature branch following project naming conventions
+git checkout -b feature/{{ISSUE_NUMBER}}-{{SHORT_DESCRIPTION}}
+
+# 4. Make necessary code/documentation changes
+# Ensure all new or modified Markdown files have enhanced YAML front matter
+# Example: Run a script to add/update YAML front matter
+./scripts/add-yaml-frontmatter.sh --file path/to/your/document.md
+
+# 5. Update the project's documentation index (if applicable)
+./scripts/generate-docs-index.sh
+
+# 6. Run all project tests and validation checks locally
+npm test
+npm run validate # Or equivalent project-specific validation command
+
+# 7. Commit changes following Conventional Commits standard
+git add .
+git commit -m "feat({{INITIATIVE_NAME}}): concise feature description
+
+- Detailed description of changes made.
+- How these changes address the initiative.
+- Reference related issues: #{{ISSUE_NUMBER}}
+- Mention documentation updates and validation steps."
+
+# 8. Push your branch and create a Pull Request (PR)
+git push origin feature/{{ISSUE_NUMBER}}-{{SHORT_DESCRIPTION}}
+gh pr create --title "feat: {{CONCISE_PR_TITLE}}" --body "
+## Initiative Context
+- **Initiative**: {{INITIATIVE_NAME}}
+- **Related Issues**: #{{ISSUE_NUMBER}}
+- **Cross-cutting impacts**: Briefly describe impacts on other areas (e.g., frontend, backend, documentation).
+
+## Changes Made
+- List key changes with specific file references.
+- Confirm documentation updates (e.g., README, AGENTS.md, ARCHITECTURE.md).
+- Confirm validation steps taken (e.g., tests passed, linting clean).
+
+## Testing
+- All automated tests pass.
+- Manual testing (if applicable) performed and results documented.
+- Enhanced YAML validation passes.
+- Documentation index updated and verified.
+
+## Screenshots (if applicable)
+[Add screenshots for UI changes or visual proof]
+
+## Additional Notes
+[Any additional context or notes for reviewers]
+"
+```
+
+**Customization Guidance**: The exact commands and script names are examples. Projects should replace `{{CONSTITUTION_PATH}}`, `{{ISSUE_NUMBER}}`, `{{SHORT_DESCRIPTION}}`, `{{INITIATIVE_NAME}}`, and `{{CONCISE_PR_TITLE}}` with actual values or project-specific placeholders. The `scripts/` directory and its contents should be adapted to the project's specific tooling.
+
+## Quality Gates for AI Agents
+
+Before submitting any Pull Request, AI agents must ensure the following quality gates are met:
+
+-   [ ] Project Constitution (`{{CONSTITUTION_PATH}}`) and Agent Collaboration Guide (`AGENTS.md`) read completely.
+-   [ ] Initiative context for the work clearly identified and documented.
+-   [ ] All new or modified Markdown documents include enhanced YAML front matter.
+-   [ ] Project documentation index (if applicable) regenerated and verified.
+-   [ ] All automated tests pass successfully.
+-   [ ] Any relevant linting, styling, or static analysis checks pass.
+-   [ ] A GitHub issue is created or referenced for the task.
+-   [ ] Pull Request created with a comprehensive initiative analysis and changes description.
+-   [ ] **Human review requested** (AI agents cannot merge their own PRs without explicit human approval).
+
+**Mission:** To ensure all AI agent contributions are compliant with project standards, transparently documented, and seamlessly integrated into the development workflow, fostering a high-quality, collaborative, and auditable project environment.
+

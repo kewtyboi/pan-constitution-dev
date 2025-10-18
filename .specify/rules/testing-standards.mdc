@@ -1,0 +1,127 @@
+---
+topic: project-rules
+name: Testing Standards & Requirements
+author: {{PROJECT_TEAM}}
+version: 1.0.0
+date: {{CREATION_DATE}}
+description: General testing standards and requirements for projects using the Pan Constitution Template.
+initiative: pan-constitution-template
+related_issues: []
+status: active
+tags:
+  - testing
+  - quality-assurance
+  - test-strategy
+  - automation
+  - rules
+---
+
+# Testing Standards & Requirements
+
+This document outlines the general testing standards and requirements for projects built with the **Pan Constitution Template**. Adherence to these standards ensures software quality, reliability, and maintainability across the development lifecycle.
+
+## ✅ Test Coverage Target
+
+Projects should define and strive for a minimum test coverage target to ensure critical components are adequately tested.
+
+-   **Minimum Target**: Establish a project-specific minimum code coverage percentage (e.g., 80% for critical paths, 70% overall).
+-   **Focus Areas**: Prioritize test coverage for critical business logic, security-sensitive areas, and complex algorithms.
+
+**Customization Guidance**: Define your project's specific coverage targets and identify key areas that require higher scrutiny. Raw coverage numbers should be balanced with the quality and effectiveness of tests.
+
+## 📁 Test Suite Organization
+
+Organize test suites logically to reflect the project's architecture and facilitate easy navigation and maintenance.
+
+-   **Unit Tests**: Place unit tests alongside the code they test (e.g., `src/module/__tests__/` or `src/module/test/`).
+-   **Integration Tests**: Organize integration tests in a dedicated directory (e.g., `tests/integration/` or `app/tests/`).
+-   **End-to-End (E2E) Tests**: Store E2E tests in a separate, top-level directory (e.g., `e2e/` or `tests/e2e/`).
+-   **Naming Conventions**: Use consistent naming conventions for test files (e.g., `*.test.js`, `*.spec.ts`, `test_*.py`) that clearly indicate their purpose.
+
+**Customization Guidance**: Adapt the directory structure to match your project's specific module organization. Ensure test file names are descriptive and reflect the functionality being tested.
+
+## 🤖 Automated Test Suites
+
+Implement a variety of automated test suites to cover different aspects of software quality.
+
+-   **Unit Tests**: Verify the correctness of individual functions, methods, or components in isolation.
+-   **Integration Tests**: Confirm that different modules or services interact correctly with each other.
+-   **End-to-End Tests**: Simulate real user scenarios to validate the entire application flow.
+-   **API Tests**: Validate the functionality, reliability, performance, and security of API endpoints.
+-   **Performance Tests**: Assess system responsiveness, stability, and scalability under various load conditions.
+-   **Security Tests**: Include static analysis (SAST), dynamic analysis (DAST), and vulnerability scanning in the CI/CD pipeline.
+-   **Accessibility Tests**: Ensure the application is usable by individuals with disabilities.
+-   **Documentation Tests**: Validate the correctness of documentation (e.g., link checking, YAML front matter validation).
+
+**Customization Guidance**: List the specific automated test suites implemented in your project and their purpose. Provide examples of how they are triggered.
+
+## 🏃 Running Tests
+
+Provide clear and easy-to-use commands for running various test suites.
+
+```bash
+# Example: Run all automated tests
+{{PROJECT_TEST_COMMAND}}
+
+# Example: Run tests in watch mode for local development
+{{PROJECT_TEST_WATCH_COMMAND}}
+
+# Example: Generate code coverage reports
+{{PROJECT_TEST_COVERAGE_COMMAND}}
+
+# Example: Run a specific subset of tests
+{{PROJECT_TEST_SUBSET_COMMAND}}
+
+# Example: Inspect logs for debugging test failures
+# Refer to your project's logging configuration for details
+```
+
+**Customization Guidance**: Replace placeholders with your project's actual commands (e.g., `npm test`, `pytest`, `npm run test:watch`). Document how to debug test failures.
+
+## 📏 Test File Conventions
+
+Establish conventions for writing test files to ensure consistency and maintainability.
+
+-   **Descriptive Names**: Use descriptive names for test files and individual test cases.
+-   **Clear Assertions**: Write clear and specific assertions that indicate expected behavior.
+-   **Test Data**: Manage test data effectively, using fixtures or factories where appropriate.
+-   **Isolation**: Ensure tests are isolated and do not depend on the order of execution or external state.
+-   **Readability**: Write clean, readable test code that is easy to understand and maintain.
+
+**Customization Guidance**: Reference your project's specific linting rules or style guides that apply to test files (e.g., ESLint configurations).
+
+## ⏱️ Performance Testing
+
+Define and monitor performance targets for critical system components.
+
+-   **Key Performance Indicators (KPIs)**: Identify critical KPIs (e.g., P95 latency, throughput, resource utilization) for key services.
+-   **Load Testing**: Conduct regular load tests to simulate anticipated user traffic and identify bottlenecks.
+-   **Stress Testing**: Perform stress tests to determine the system's breaking point and behavior under extreme conditions.
+-   **Scalability Testing**: Evaluate how the system performs as resources are added or removed.
+
+**Customization Guidance**: Specify concrete performance targets (e.g., "P95 < 200ms for API X", "System must handle 1000 concurrent users"). Detail the tools and methodologies used for performance testing.
+
+## 📚 Documentation Testing
+
+Treat documentation as a critical component of the project and apply testing principles to ensure its quality.
+
+-   **YAML Front Matter Validation**: Validate the presence and correctness of YAML front matter in all Markdown documents.
+-   **Link Checking**: Automatically check for broken internal and external links.
+-   **Content Consistency**: Verify consistency in terminology, formatting, and information across related documents.
+-   **Cross-Reference Validation**: Ensure cross-references to code, issues, or other documents are accurate.
+
+**Customization Guidance**: Integrate documentation testing into your CI/CD pipeline. Specify tools used for linting Markdown, checking links, and validating metadata.
+
+## 🚪 Quality Gates
+
+Define clear quality gates that must be met before code or documentation can be merged or deployed.
+
+-   [ ] All automated tests pass successfully.
+-   [ ] Code coverage meets the defined minimum target.
+-   [ ] Performance benchmarks are met for critical components.
+-   [ ] All security and privacy compliance tests pass.
+-   [ ] Documentation validation checks pass.
+-   [ ] All configured linters and formatters pass.
+-   [ ] Manual review (code, design, documentation) is completed and approved.
+
+**Mission:** To establish a comprehensive and effective testing strategy that ensures the quality, reliability, performance, and security of projects built with the Pan Constitution Template. Embed testing throughout the development lifecycle to deliver high-quality software consistently.
