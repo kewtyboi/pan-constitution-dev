@@ -1,0 +1,134 @@
+---
+topic: project-rules
+name: Initiative-Based Documentation & Change Tracking
+author: {{PROJECT_TEAM}}
+version: 1.0.0
+date: {{CREATION_DATE}}
+description: Guidelines for initiative-based documentation and change tracking for projects using the Pan Constitution Template.
+initiative: pan-constitution-template
+related_issues: []
+status: active
+tags:
+  - initiative
+  - change-management
+  - documentation
+  - project-management
+  - rules
+---
+
+# Initiative-Based Documentation & Change Tracking
+
+This document outlines the principles for implementing an **initiative-based documentation system** within projects utilizing the **Pan Constitution Template**. This system is designed to provide superior change management, enhance cross-cutting visibility, and ensure traceability of all work.
+
+## Defining Initiatives
+
+An initiative represents a significant body of work, a major feature, or a strategic goal within the project. It provides a logical grouping for related tasks, decisions, and documentation. Projects should define their own set of active initiatives.
+
+**Example Active Initiatives (Placeholder):**
+
+| Initiative Name | Status | Description |
+|-----------------|--------|-------------|
+| `{{EXAMPLE_INITIATIVE_1}}` | `{{STATUS}}` | `{{DESCRIPTION_OF_INITIATIVE_1}}` |
+| `{{EXAMPLE_INITIATIVE_2}}` | `{{STATUS}}` | `{{DESCRIPTION_OF_INITIATIVE_2}}` |
+| `{{EXAMPLE_INITIATIVE_3}}` | `{{STATUS}}` | `{{DESCRIPTION_OF_INITIATIVE_3}}` |
+
+**Customization Guidance**: Replace the example initiatives with your project's actual, active initiatives. Ensure each initiative has a clear name, status (e.g., Active, In Progress, Completed, On Hold), and a concise description.
+
+## Enhanced YAML Front Matter Required
+
+All new or modified Markdown documents (`.md` and `.mdc` files) MUST include enhanced YAML front matter, which explicitly links the document to an initiative. This metadata is critical for effective initiative tracking.
+
+```yaml
+---
+topic: <Subject Area> # e.g., agent-roles, project-rules, how-to-guides
+initiative: <Initiative Name> # The project initiative this document supports
+related_issues: ["#<issue-number>"] # List of related GitHub issue numbers
+status: <active/draft/archived> # Document lifecycle status
+---
+```
+
+**Customization Guidance**: The `initiative` field must directly correspond to one of your project's defined initiatives. The `related_issues` field should link to relevant GitHub issues that are part of that initiative.
+
+## Automation Scripts (Example)
+
+Projects are encouraged to implement automation to streamline initiative tracking and documentation compliance. Examples include:
+
+```bash
+# Example: Add enhanced YAML front matter to new/modified files
+# This script would typically auto-detect relevant metadata or prompt for it.
+./scripts/add-yaml-frontmatter.sh
+
+# Example: Generate or update a comprehensive documentation index based on initiatives
+./scripts/generate-docs-index.sh
+
+# Example: Validate enhanced YAML (often integrated into CI/CD)
+# This script would check for correctness and completeness of metadata, including initiative linkage.
+./scripts/validate-yaml-frontmatter.sh
+```
+
+**Customization Guidance**: The exact scripts and their names will vary per project. These are placeholders to illustrate the type of automation that supports initiative tracking. Ensure your project's `package.json` or equivalent build system includes commands for these tasks.
+
+## Initiative Context in Commits & PRs
+
+To maintain clear traceability, all commit messages and Pull Request (PR) descriptions must explicitly reference the initiative context.
+
+**Commit Messages (Conventional Commits):**
+
+```
+feat({{INITIATIVE_NAME}}): concise feature description
+
+- Detailed description of changes made.
+- How these changes address the initiative.
+- Reference related issues: #{{ISSUE_NUMBER}}
+- Document cross-cutting impacts.
+```
+
+**Pull Request Descriptions:**
+
+```markdown
+## Initiative Context
+- **Initiative**: {{INITIATIVE_NAME}}
+- **Related Issues**: #{{ISSUE_NUMBER}}
+- **Cross-cutting impacts**: Briefly describe impacts on other areas (e.g., frontend, backend, documentation).
+
+## Changes Made
+- List key changes with specific file references.
+- Confirm documentation updates (e.g., README, AGENTS.md, ARCHITECTURE.md).
+- Confirm validation steps taken (e.g., tests passed, linting clean).
+
+## Testing
+- All automated tests pass.
+- Manual testing (if applicable) performed and results documented.
+- Enhanced YAML validation passes.
+- Documentation index updated and verified.
+
+## Screenshots (if applicable)
+[Add screenshots for UI changes or visual proof]
+
+## Additional Notes
+[Any additional context or notes for reviewers]
+```
+
+**Customization Guidance**: Replace `{{INITIATIVE_NAME}}`, `{{ISSUE_NUMBER}}`, `{{SHORT_DESCRIPTION}}`, and `{{CONCISE_PR_TITLE}}` with actual values or project-specific placeholders. The `scripts/` directory and its contents should be adapted to the project's specific tooling.
+
+## Documentation Impact Assessment
+
+When making changes, especially those spanning multiple initiatives or areas, a thorough impact assessment is required across:
+
+1.  **Topics**: What subject areas or documents are affected by this change?
+2.  **Initiatives**: Which project initiatives are directly or indirectly impacted?
+3.  **Related Issues**: Are there existing GitHub issues connected to this work that need updating or referencing?
+4.  **Cross-cutting Dependencies**: How do these changes affect other parts of the system, other teams, or other documentation?
+
+## Quality Gates
+
+Before submitting any Pull Request, ensure the following quality gates related to initiative tracking are met:
+
+-   [ ] Initiative context for the work clearly identified and documented.
+-   [ ] All new or modified Markdown documents include enhanced YAML front matter with the correct `initiative` field.
+-   [ ] Related issues are correctly referenced in both YAML front matter and PR descriptions.
+-   [ ] Documentation index (if applicable) regenerated and verified.
+-   [ ] Cross-cutting impacts are documented in the PR description.
+-   [ ] Human review completed (AI agents cannot merge their own PRs without explicit human approval).
+
+**Mission:** To establish a robust, transparent, and traceable system for managing project changes and documentation through the explicit use of initiatives, ensuring all contributions are aligned with strategic goals and easily understandable within their broader context.

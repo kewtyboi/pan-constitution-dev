@@ -1,0 +1,92 @@
+---
+topic: project-rules
+name: Privacy & Security Requirements
+author: {{PROJECT_TEAM}}
+version: 1.0.0
+date: {{CREATION_DATE}}
+description: General privacy and security requirements for projects using the Pan Constitution Template.
+initiative: pan-constitution-template
+related_issues: []
+status: active
+tags:
+  - privacy
+  - security
+  - compliance
+  - data-protection
+  - rules
+---
+
+# Privacy & Security Requirements
+
+This document outlines general privacy and security requirements for projects built with the **Pan Constitution Template**. These guidelines are designed to ensure data protection, system integrity, and compliance with relevant regulations.
+
+## 🛡️ Data Protection & Compliance
+
+Projects must adhere to applicable data protection regulations (e.g., GDPR, CCPA). Key considerations include:
+
+-   **Data Minimization**: Collect and process only data that is necessary for specified, explicit, and legitimate purposes.
+-   **Purpose Limitation**: Ensure data is processed only for the purposes for which it was collected.
+-   **Consent Management**: Implement clear mechanisms for obtaining, managing, and revoking user consent where required.
+-   **Data Residency**: Define and adhere to data storage and processing locations based on regulatory and business requirements.
+-   **Data Retention**: Establish and enforce policies for data retention and secure deletion.
+-   **Transparency**: Clearly communicate data handling practices to users through privacy policies.
+
+**Customization Guidance**: Projects should explicitly state which regulations they aim to comply with and detail the specific measures taken to achieve compliance (e.g., specific consent flows, data anonymization techniques, or data processing agreements).
+
+## 🔒 Security Measures
+
+Robust security measures are fundamental to protecting project assets and user data. Projects must implement and maintain the following:
+
+-   **Secure Coding Practices**: Follow industry-standard secure coding guidelines (e.g., OWASP Top 10) to prevent common vulnerabilities.
+-   **Authentication and Authorization**: Implement strong authentication mechanisms (e.g., multi-factor authentication) and granular authorization controls (e.g., Role-Based Access Control).
+-   **Data Encryption**: Encrypt data at rest and in transit using strong cryptographic algorithms.
+-   **Vulnerability Management**: Conduct regular vulnerability assessments, penetration testing, and security audits. Address identified vulnerabilities promptly.
+-   **Incident Response**: Develop and maintain an incident response plan to effectively detect, respond to, and recover from security incidents.
+-   **Supply Chain Security**: Ensure the security of third-party libraries, dependencies, and services used in the project.
+
+**Customization Guidance**: Detail specific security tools, processes, and frameworks adopted by the project (e.g., specific WAF solutions, IDS/IPS, security training programs).
+
+## ⚙️ Configuration & Secrets Management
+
+Proper management of configuration and secrets is critical to prevent unauthorized access and maintain system integrity.
+
+-   **Environment Variables**: Utilize environment variables for sensitive configuration data. Never hardcode secrets in code.
+-   **Secrets Management System**: Employ a dedicated secrets management solution (e.g., HashiCorp Vault, AWS Secrets Manager, Kubernetes Secrets) for storing and retrieving sensitive information.
+-   **Version Control Exclusion**: Ensure sensitive files (e.g., `.env` files, private keys) are explicitly excluded from version control using `.gitignore`.
+-   **Configuration Templates**: Provide `.env.example` or similar templates to guide developers on required environment variables without exposing actual values.
+-   **Secure Provisioning**: Implement secure procedures for provisioning and rotating secrets in development, staging, and production environments.
+
+**Customization Guidance**: Specify the chosen secrets management system and any project-specific scripts or tools for local development setup (e.g., `./scripts/setup-local-env.sh`).
+
+## 📊 Performance & Rate Limiting
+
+While primarily a performance concern, rate limiting also plays a role in security by mitigating denial-of-service attacks and preventing abuse.
+
+-   **API Rate Limits**: Implement appropriate rate limiting on API endpoints to protect against abuse and ensure fair usage.
+-   **Performance Targets**: Define and monitor performance targets (e.g., response times, throughput) for critical functionalities to ensure system responsiveness.
+-   **Resource Limits**: Configure resource limits for deployed services to prevent resource exhaustion and enhance stability.
+
+**Customization Guidance**: Detail specific rate limiting policies (e.g., 60 RPM for critical endpoints, 300 RPM for others) and performance benchmarks for key services.
+
+## 🧪 Testing Requirements
+
+Security and privacy must be integral to the testing process.
+
+-   **Security Testing**: Include security tests (e.g., SAST, DAST, penetration testing) in the CI/CD pipeline.
+-   **Privacy Testing**: Verify that data handling and privacy controls function as expected.
+-   **Compliance Testing**: Automate checks for compliance with relevant regulations where possible.
+-   **Abuse Case Testing**: Develop test cases specifically designed to identify and prevent abuse scenarios.
+
+**Customization Guidance**: List specific security testing tools and methodologies used (e.g., RLS tests, rate limit tests, audio pipeline privacy verification).
+
+## 🚀 Devcontainer & Local Development
+
+Ensure local development environments are configured securely and consistently.
+
+-   **Standardized Setup**: Provide a standardized development container (`.devcontainer`) to ensure consistent environments.
+-   **Local Secrets**: Guide developers on how to securely provision local secrets for development without compromising production security.
+-   **Database Mocking**: For local development, use mocked or sanitized data where sensitive production data is not required.
+
+**Customization Guidance**: Reference project-specific scripts for devcontainer setup (e.g., `./.devcontainer/postCreate.sh`) and local database initialization (`./supabase/schema.sql` if using Supabase).
+
+**Mission:** To establish a foundational set of privacy and security requirements that protect user data, maintain system integrity, and ensure regulatory compliance across all projects built with the Pan Constitution Template. Security and privacy are not features, but fundamental aspects embedded throughout the development lifecycle.

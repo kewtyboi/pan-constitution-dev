@@ -1,0 +1,101 @@
+---
+topic: project-rules
+name: Project Structure & Guidelines
+author: {{PROJECT_TEAM}}
+version: 1.0.0
+date: {{CREATION_DATE}}
+description: General project structure and module organization guidelines for projects using the Pan Constitution Template.
+initiative: pan-constitution-template
+related_issues: []
+status: active
+tags:
+  - project-structure
+  - guidelines
+  - organization
+  - rules
+---
+
+# Project Structure & Guidelines
+
+This document provides general guidelines for structuring and organizing projects built with the **Pan Constitution Template**. The goal is to promote consistency, maintainability, and scalability across different project types.
+
+## 📁 Core Project Structure
+
+Projects should adopt a logical and consistent directory structure. Common top-level directories and their purposes include:
+
+-   `src/` or `app/`: Contains primary application source code (e.g., `src/backend/`, `src/frontend/`, `src/shared/`).
+-   `docs/`: Project documentation, including conceptual guides, how-tos, and API references. (Refer to `docs/README.md` for structure).
+-   `config/`: Configuration files for various environments (e.g., database, services, build tools).
+-   `scripts/`: Utility scripts for development, deployment, and automation.
+-   `tests/`: Automated test suites (unit, integration, end-to-end).
+-   `.github/`: GitHub Actions workflows and other GitHub-specific configurations.
+-   `.specify/`: Pan-wide and project-specific governance rules and standards (as per Pan Constitution).
+
+**Customization Guidance**: Adapt these directories to fit your project's specific needs (e.g., `packages/` for monorepos, `public/` for static assets). Ensure a `README.md` exists in each major directory to explain its contents.
+
+## 🛠️ Build, Test, and Development Commands
+
+Standardize common development commands for ease of use and consistency across the team.
+
+-   `{{PROJECT_BUILD_COMMAND}}`: Command to build the project (e.g., `npm run build`, `make build`).
+-   `{{PROJECT_TEST_COMMAND}}`: Command to run all automated tests (e.g., `npm test`, `pytest`).
+-   `{{PROJECT_DEV_COMMAND}}`: Command to start the local development server(s) (e.g., `npm run dev`, `docker-compose up`).
+-   `{{PROJECT_LINT_COMMAND}}`: Command to run linters and formatters (e.g., `npm run lint`, `black .`).
+-   `{{PROJECT_DOCS_COMMAND}}`: Command(s) related to documentation generation or validation (e.g., `npm run docs:generate`, `./scripts/validate-docs.sh`).
+
+**Customization Guidance**: Define these commands in your `package.json`, `Makefile`, or equivalent build system. Ensure they are well-documented and easy to execute.
+
+## 📝 Coding Style & Naming Conventions
+
+Maintain consistent coding style and naming conventions to improve readability and maintainability.
+
+-   **Code Formatting**: Utilize automated formatters (e.g., Prettier, Black, gofmt) and integrate them into your CI/CD pipeline and pre-commit hooks.
+-   **Linting**: Employ linters (e.g., ESLint, Pylint) to enforce coding standards and catch potential issues early.
+-   **Naming Conventions**: Follow established conventions for variables, functions, classes, and files (e.g., `camelCase` for functions, `PascalCase` for classes, `SCREAMING_SNAKE_CASE` for constants).
+-   **Modularity**: Organize code into logical modules or components with clear responsibilities (e.g., `services/`, `controllers/`, `components/`).
+
+**Customization Guidance**: Provide links to your project's specific `.prettierrc`, `.eslintrc`, or other configuration files. Document any project-specific naming rules.
+
+## ✅ Testing Guidelines
+
+Comprehensive testing is crucial for ensuring software quality and reliability.
+
+-   **Test Coverage**: Aim for a defined test coverage target (e.g., 80% for critical modules). Focus on meaningful tests over raw coverage percentage.
+-   **Test Types**: Implement a mix of unit, integration, and end-to-end tests as appropriate for your project architecture.
+-   **Test Location**: Place tests close to the code they validate (e.g., `__tests__/` directory within a module, or `tests/` at the root).
+-   **Test Naming**: Use clear and consistent naming conventions for test files (e.g., `*.test.js`, `*.spec.ts`, `test_*.py`).
+
+**Customization Guidance**: Specify preferred testing frameworks and tools. Document any project-specific testing strategies (e.g., for API endpoints, data processing, or UI components).
+
+## 🚀 Commit & Pull Request Guidelines
+
+Adhere to standardized practices for Git commits and Pull Requests to maintain a clean and traceable history.
+
+-   **Conventional Commits**: Use Conventional Commits specification for clear, structured commit messages (e.g., `feat:`, `fix:`, `docs:`).
+-   **Branch Naming**: Follow a consistent branch naming convention (e.g., `[type]/[issue-number]-[short-description]`).
+-   **Pull Request Descriptions**: Ensure PRs link to relevant issues, provide a clear description of changes, note any documentation updates, and confirm validation steps.
+-   **Pre-commit Checks**: Integrate automated checks (e.g., linting, formatting, tests) as pre-commit hooks to ensure quality before commits.
+
+**Customization Guidance**: Provide specific examples of valid commit messages and PR descriptions. Detail any project-specific PR templates.
+
+## 🔒 Security & Configuration Management
+
+Implement best practices for security and configuration management.
+
+-   **Secrets Management**: Never commit sensitive information directly to the repository. Use environment variables and a dedicated secrets management solution.
+-   **Configuration Templates**: Provide example configuration files (e.g., `.env.example`) that outline required environment variables without exposing actual values.
+-   **Secure Development Environment**: Ensure local development environments are configured securely, especially when dealing with sensitive data or credentials.
+
+**Customization Guidance**: Reference project-specific scripts for local environment setup or security testing (e.g., `./scripts/setup-env.sh`, `./scripts/test-security.sh`).
+
+## 🐳 Devcontainer & Local Development Setup
+
+Standardize the development environment to ensure consistency and ease of onboarding.
+
+-   **Devcontainer**: Utilize a `.devcontainer` configuration to provide a consistent, pre-configured development environment for all contributors.
+-   **Bootstrap Script**: Provide a `postCreate.sh` or similar script within the `.devcontainer` to automate setup tasks (e.g., installing dependencies, seeding databases, generating local credentials).
+-   **Verification**: Include steps to verify the successful setup of the development environment (e.g., running `{{PROJECT_HEALTH_CHECK_COMMAND}}`).
+
+**Customization Guidance**: Detail any project-specific steps for setting up the local development environment, including database initialization or service mocking.
+
+**Mission:** To provide a clear, flexible, and comprehensive set of guidelines for project structure and organization, fostering a maintainable, scalable, and collaborative development environment for all contributors.
