@@ -174,7 +174,7 @@ jobs:
             ---
             
             *This PR was automatically created by the dependency-update workflow.*" \
-            --base master \
+            --base main \
             --head "${{ steps.create-branch.outputs.branch_name }}"
 
       - name: Summary
