@@ -1,0 +1,138 @@
+# Documentation Validation Workflow
+#
+# This workflow validates the documentation structure and content to ensure:
+# - INDEX.md is current and matches actual documentation structure
+# - All internal links are valid
+# - Documentation follows Diátaxis structure
+# - Front matter is complete and valid in all documentation files
+#
+# Triggers:
+# - On pull requests that modify documentation files
+# - On push to the default branch
+# - Manual workflow dispatch
+
+name: Documentation Validation
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'INDEX.md'
+      - '*.md'
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'docs/**'
+      - 'INDEX.md'
+      - '*.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate-docs:
+    runs-on: ubuntu-latest
+    name: Validate Documentation
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check INDEX.md is current
+        id: check-index
+        run: |
+          echo "Generating documentation index..."
+          npm run docs:index:output > generated-index.md
+          
+          if diff -q INDEX.md generated-index.md > /dev/null; then
+            echo "✓ INDEX.md is current"
+            echo "index_current=true" >> $GITHUB_OUTPUT
+          else
+            echo "✗ INDEX.md is out of date"
+            echo "index_current=false" >> $GITHUB_OUTPUT
+            echo "## Differences found:" >> index-diff.txt
+            diff INDEX.md generated-index.md >> index-diff.txt || true
+          fi
+
+      - name: Validate Markdown formatting
+        run: npm run lint:md
+
+      - name: Check spelling
+        run: npm run lint:spelling
+
+      - name: Validate constitutional compliance
+        run: npm run check:constitution
+
+      - name: Check for placeholders
+        run: npm run check:placeholders
+
+      - name: Comment on PR if INDEX.md is out of date
+        if: github.event_name == 'pull_request' && steps.check-index.outputs.index_current == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let diff = '';
+            try {
+              diff = fs.readFileSync('index-diff.txt', 'utf8');
+            } catch (err) {
+              diff = 'Unable to read diff file';
+            }
+            
+            const body = `## Documentation Index Out of Date
+            
+            The \`INDEX.md\` file is not current with the actual documentation structure.
+            
+            Please run the following command to update it:
+            
+            \`\`\`bash
+            npm run docs:index
+            \`\`\`
+            
+            <details>
+            <summary>View differences</summary>
+            
+            \`\`\`diff
+            ${diff}
+            \`\`\`
+            
+            </details>`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+
+      - name: Fail if INDEX.md is out of date
+        if: steps.check-index.outputs.index_current == 'false'
+        run: |
+          echo "::error::INDEX.md is out of date. Run 'npm run docs:index' to update it."
+          exit 1
+
+      - name: Summary
+        if: success()
+        run: |
+          echo "✓ All documentation validation checks passed!"
+          echo "  - INDEX.md is current"
+          echo "  - Markdown formatting is valid"
+          echo "  - Spelling is correct"
+          echo "  - Constitutional compliance verified"
+          echo "  - No placeholders found"
+
